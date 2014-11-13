@@ -1,0 +1,25 @@
+V "GNAT Lib v4.8"
+A -gnatv
+A -gnato
+A -g
+P ZX
+
+RN
+
+U type_projet%s		type_projet.ads		0faf1b8a NE OO PK IL
+
+D system.ads		20140416144300 bd760655
+D type_projet.ads	20141111140206 0faf1b8a
+X 2 type_projet.ads
+1K9*type_projet 19l5 19e16
+3R6*point 7e11 9r48
+4i9*x{integer}
+5i9*y{integer}
+6i9*z{integer}
+9A6*Ens_points(3R6)<integer>
+11R6*triangle 15e11 17r50
+12i9*s1{integer}
+13i9*s2{integer}
+14i9*s3{integer}
+17A6*Ens_Triangles(11R6)<integer>
+
