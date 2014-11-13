@@ -21,10 +21,12 @@ type ListePoly; --Déclaration incomplète
 
 type AListePoly is access ListePoly; --type pointeur
 
+type AccPointsFace is access pointsFace;
+
 type ListePoly is
 record
-Poly: pointsFace;
-Succ:AListePoly;
+	p_poly : AccPointsFace;
+	Succ : AListePoly;
 end record;
 --------------------------------------------------------------------------------
 
@@ -38,7 +40,7 @@ type DonBase is array (integer range 0..2) of integer; --Contient le nombre de s
 --------------------------------------------------------------------------------
 
 --Type pointeur sur le tableau d'ensemble des polygones
-type p_EnsPolygone is access Ens_Faces;
+type AccEns_Poly is access Ens_Poly;
 --------------------------------------------------------------------------------
 
 end type_projet;

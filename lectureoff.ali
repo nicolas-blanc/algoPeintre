@@ -5,18 +5,22 @@ A -g
 P ZX
 
 RN
+RV NO_ALLOCATORS
 RV NO_FLOATING_POINT
 RV NO_IO
+RV NO_LOCAL_ALLOCATORS
 RV NO_DEFAULT_INITIALIZATION
 RV SPARK
 
-U lectureoff%b		lectureoff.adb		a1a87cd7 NE OO PK IL
+U lectureoff%b		lectureoff.adb		adfc4106 NE OO PK IL
+W ada.tags%s		a-tags.adb		a-tags.ali
+
+U lectureoff%s		lectureoff.ads		ebac1131 EE NE OO PK IL
 W ada%s			ada.ads			ada.ali
 W ada.float_text_io%s	a-flteio.ads		a-flteio.ali
 W ada.integer_text_io%s	a-inteio.ads		a-inteio.ali
 W ada.text_io%s		a-textio.adb		a-textio.ali
-
-U lectureoff%s		lectureoff.ads		1294c9e4 EE NE OO PK IL
+W type_projet%s		type_projet.ads		type_projet.ali
 
 D ada.ads		20070406091342 3ffc8e18
 D a-except.ads		20120716125141 10fcae55
@@ -32,9 +36,9 @@ D a-tiinio.ads		20090409150019 aa04e5d6
 D a-unccon.ads		20070406091342 f9eb8f06
 D interfac.ads		20110906094621 129923ea
 D i-cstrea.ads		20130102105938 3286f6aa
-D lectureoff.ads	20141111143356 1294c9e4
-D lectureoff.adb	20141111144135 9c908ee3
-D system.ads		20140416144300 bd760655
+D lectureoff.ads	20141113151200 cb36be46
+D lectureoff.adb	20141113151155 66caff40
+D system.ads		20140416144310 90249111
 D s-crtl.ads		20130102105938 1ea48bce
 D s-exctab.ads		20090417131547 66e51330
 D s-ficobl.ads		20120709130952 55a71d43
@@ -51,30 +55,63 @@ D s-stopoo.ads		20111013103733 7b8fbeee
 D s-traent.ads		20090417130712 5221ee41
 D s-unstyp.ads		20090409150019 6ae15c76
 D s-wchcon.ads		20090417130712 bfeb2e3d
+D type_projet.ads	20141113150957 0f3694a7
 X 1 ada.ads
-16K9*Ada 19e8 16|1r6 2r5 3r6 4r5 5r6 6r5
+16K9*Ada 19e8 15|1r6 2r5 3r6 4r5 5r6 6r5 16|18r9
 X 4 a-flteio.ads
-20K13*Float_Text_IO[10|45] 16|5w10 6r9
+20K13*Float_Text_IO[10|45] 15|5w10 6r9
 X 5 a-inteio.ads
-18K13*Integer_Text_IO[11|45] 16|3w10 4r9
+18K13*Integer_Text_IO[11|45] 15|3w10 4r9
 X 9 a-textio.ads
-49K13*Text_IO 471e16 16|1w10 2r9
-52P9*File_Type(369R9) 16|11r12
-53n23*In_File{53E9} 16|14r17
-73I12*Field{integer}
-92U14*Open 16|14s1
-98U14*Close 16|19s1
+49K13*Text_IO 471e16 15|1w10 2r9 16|18r13
+52P9*File_Type(369R9) 15|12r49 13r52 14r33 15r29 16|4r33 16r29 22r49 47r52
+53n23*In_File{53E9} 16|7r25
+92U14*Open 16|7s9
+98U14*Close 16|18s21
+239U14*Get 16|8s9
 X 10 a-tiflio.ads
-51U14*Get 16|16s1[4|20]
-67U14*Put 16|17s1[4|20]
-71i7 Exp{9|73I12} 16|17r8[4|20]
+51U14*Get 16|25s9[4|20] 26s9[4|20] 27s9[4|20] 34s17[4|20] 35s17[4|20] 36s17[4|20]
+X 11 a-tiinio.ads
+50U14*Get 16|10s17[5|18] 11s17[5|18] 12s17[5|18] 53s17[5|18]
 X 15 lectureoff.ads
-1K9*lectureoff 6l5 6e15 16|8b14 22l5 22t15
-3U11*lectureFichierOFF 3>30 16|10b11 20l5 20t22
-3s30 nom{string} 16|10b30 14r25
+10K9*lectureoff 17l5 17e15 16|1b14 67l5 67t15
+12U11*initEnsPoints 12>26 12>43 12<60 12=97 12=102 16|22b11 44l5 44t18
+12i26 nbs{integer} 16|22b26 33r21
+12p43 f{9|52P9} 16|22b43 25r13 26r13 27r13 34r21 35r21 36r21
+12a60 EPoints{34|16A6} 16|22b60 28m9 37m17
+12f97 max{float} 16|22b97 30m9 40r29 41m25
+12f102 min{float} 16|22b102 31m9 38r26 39m25
+13U11*initEnsPolygones 13>29 13>46 13<63 16|47b11 63l5 63t21
+13i29 nbf{integer} 16|47b29 51r42 52r21
+13p46 f{9|52P9} 16|47b46 53r21
+13p63 p{34|43P6} 16|47b63 51m9
+14U11*init 14<17 14>44 14<61 16|4b11 14l5 14t9
+14p17 monFichier{9|52P9} 16|4b17 7m14 8r13 10r21 11r21 12r21
+14s44 nom{string} 16|4b44 7r33
+14a61 DBase{34|39A6} 16|4b61 10m32 10r32 11m32 11r32 12m32 12r32
+15U11*close 15=18 16|16b11 19l5 19t10
+15p18 f{9|52P9} 16|16b18 18m27
 X 16 lectureoff.adb
-11p1 monFichier{9|52P9} 14m6 14r6 16r5 19m7 19r7
-12f1 e1{float} 16m16 17r5
-12f4 e2{float}
-12f7 e3{float}
+5a9 s1{string} 8m24 9r12
+23r9 p{34|4R6} 25m15 25r15 26m15 26r15 27m15 27r15 28r21 30r16 31r16 34m23
+. 34r23 35m23 35r23 36m23 36r23 37r29 38r20 39r32 40r23 41r32
+33i13 i{integer} 37r25
+48i9 t{integer} 53m23 55r61 57r38
+49i9 d{integer} 59m33
+52i13 i{integer}
+55a25 faceTemp{34|12A6}
+57i29 j{integer}
+X 34 type_projet.ads
+1K9*type_projet 15|7w6 12r73 13r70 14r73 16|4r73 22r73 23r11 47r70 51r18
+. 55r35 34|46e16
+4R6*point 16|23r23 34|8e11
+5f9*x{float} 16|27m17 34m25
+6f9*y{float} 16|25m17 35m25
+7f9*z{float} 16|26m17 30r18 31r18 36m25 38r22 39r34 40r25 41r34
+12A6*pointsFace(integer)<integer> 16|55r47
+16A6*Ens_points(4R6)<integer> 15|12r85 16|22r85
+26R6*ListePoly
+34A6*Ens_Poly(26R6)<integer> 16|51r30
+39A6*DonBase(integer)<integer> 15|14r85 16|4r85
+43P6*AccEns_Poly(34A6) 15|13r82 16|47r82
 
