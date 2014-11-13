@@ -1,6 +1,5 @@
 package body lectureoff is
 
---/!\ Modif Antoine 13/11
 procedure init (monFichier: out file_type; nom : in string; DBase : out type_projet.DonBase) is
 	s1 : string(1..3);
 begin
@@ -18,7 +17,6 @@ begin
 	Ada.Text_IO.close(f);
 end close;
 
---/!\ Modif Antoine 13/11
 procedure initEnsPoints (nbs: in integer; f: in file_type; EPoints: out type_projet.Ens_points; max, min : in out float) is
 	p:type_projet.point;
 begin
@@ -43,9 +41,8 @@ begin
 	end loop;
 end initEnsPoints;
 
---/!\ Modif Antoine 13/11
 procedure initEnsPolygones (nbf: in integer; f: in file_type; p: out type_projet.AccEns_Poly) is
-	t:integer;
+	t : integer;
 	d : integer;
 begin
 	p := new type_projet.Ens_Poly(0..nbf);
@@ -55,13 +52,11 @@ begin
 			faceTemp: type_projet.pointsFace(0..t-1);
 		begin
 			for j in 0..(t-1) loop
-				--tri_paquets.tri_paquet(p,faceTemp);
+				tri_paquets.tripaquet(faceTemp,p);
 				d := 1;
 			end loop;
 		end;
 	end loop;
-end initEnsPolygones;	
-
---procedure triPaquet (p : in pointsFace; )
+end initEnsPolygones;
 
 end lectureoff;
