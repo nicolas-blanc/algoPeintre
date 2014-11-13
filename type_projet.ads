@@ -17,28 +17,29 @@ type Ens_points is array (integer range <>) of point;
 --------------------------------------------------------------------------------
 
 --Type pour les listes de polygones---------------------------------------------
+type AccPoinstFaces is acces pointsFace;
+
 type ListePoly; --Déclaration incomplète
 
 type AListePoly is access ListePoly; --type pointeur
 
 type ListePoly is
 record
-Poly: pointsFace;
+p_poly: AccPoinstFaces;
 Succ:AListePoly;
 end record;
+--------------------------------------------------------------------------------
+
+--Pointeur sur Ens_Poly---------------------------------------------------------
+type AccEns_Poly is access Ens_Poly;
 --------------------------------------------------------------------------------
 
 --Contient toutes les faces formant la figure.----------------------------------
 type Ens_Poly is array (integer range<>) of ListePoly;
 --------------------------------------------------------------------------------
 
-
 --Contient les données de base, nombre de sommet, nombre de faces et nombre d'arretes
 type DonBase is array (integer range 0..2) of integer; --Contient le nombre de sommet/face/arrete
---------------------------------------------------------------------------------
-
---Type pointeur sur le tableau d'ensemble des polygones
-type p_EnsPolygone is access Ens_Faces;
 --------------------------------------------------------------------------------
 
 end type_projet;
