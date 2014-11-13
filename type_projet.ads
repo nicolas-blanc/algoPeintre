@@ -17,7 +17,7 @@ type Ens_points is array (integer range <>) of point;
 --------------------------------------------------------------------------------
 
 --Type pour les listes de polygones---------------------------------------------
-type AccPoinstFaces is acces pointsFace;
+type AccPointsFace is access pointsFace; --type pointeur
 
 type ListePoly; --Déclaration incomplète
 
@@ -25,6 +25,7 @@ type AListePoly is access ListePoly; --type pointeur
 
 type ListePoly is
 record
+
 p_poly: AccPoinstFaces;
 Succ:AListePoly;
 end record;

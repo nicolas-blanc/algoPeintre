@@ -1,16 +1,7 @@
-with Ada.Text_IO;
-use Ada.Text_IO;
-with Ada.Integer_Text_IO;
-use Ada.Integer_Text_IO;
-with Ada.Float_Text_IO;
-use Ada.Float_Text_IO;
-with type_projet;
-
 package body lectureoff is
 
---/!\ Modif Antoine 13/11
 procedure init (monFichier: out file_type; nom : in string; DBase : out type_projet.DonBase) is
-	s1:string(0..2);
+	s1 : string(1..3);
 begin
 	open(monFichier,In_File,nom);
 	Get(monFichier,s1);
@@ -21,19 +12,18 @@ begin
 	end if;
 end init;
 
-procedure close (nom_fichier : in string) is
+procedure close (f : in out file_type) is
 begin
-	Ada.Text_IO.close(nom_fichier);
-end close
+	Ada.Text_IO.close(f);
+end close;
 
---/!\ Modif Antoine 13/11
 procedure initEnsPoints (nbs: in integer; f: in file_type; EPoints: out type_projet.Ens_points; max, min : in out float) is
 	p:type_projet.point;
 begin
 	Get(f,p.y);
 	Get(f,p.z);
 	Get(f,p.x);
-	EPoints(i):=p;
+	EPoints(0):=p;
 
 	max := p.z;
 	min := p.z;
@@ -51,23 +41,22 @@ begin
 	end loop;
 end initEnsPoints;
 
---/!\ Modif Antoine 13/11
-procedure initEnsFaces (nbf: in integer; f: in file_type; p: out p_EnsPolygone) is
-	p : p_EnsPolygone := new Ens_Poly(0..nbf);
-	t:integer;
+procedure initEnsPolygones (nbf: in integer; f: in file_type; p: out type_projet.AccEns_Poly) is
+	t : integer;
+	d : integer;
 begin
+	p := new type_projet.Ens_Poly(0..nbf);
 	for i in 0..nbf loop
 		Get(f,t);
 		declare
 			faceTemp: type_projet.pointsFace(0..t-1);
 		begin
 			for j in 0..(t-1) loop
-				tri_paquets.tri_paquet(p,faceTemp);
+				tri_paquets.tripaquet(faceTemp,p);
+				d := 1;
 			end loop;
 		end;
 	end loop;
-end initEnsFaces;
-
-procedure triPaquet (p : in pointsFace; )
+end initEnsPolygones;
 
 end lectureoff;

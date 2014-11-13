@@ -19,6 +19,12 @@ begin
 		CaseCour:=i;
 	end if;
 
+procedure triPaquet (pF : in pointsFace; p_poly : in AccEns_Poly) is
+
+begin
+
+end triPaquet;
+
 end demarrer;
 
 --Renvoi les infos sur l'elem en cours
