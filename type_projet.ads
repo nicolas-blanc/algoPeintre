@@ -37,4 +37,8 @@ type Ens_Poly is array (integer range<>) of ListePoly;
 type DonBase is array (integer range 0..2) of integer; --Contient le nombre de sommet/face/arrete
 --------------------------------------------------------------------------------
 
+--Type pointeur sur le tableau d'ensemble des polygones
+type p_EnsPolygone is access Ens_Faces;
+--------------------------------------------------------------------------------
+
 end type_projet;
