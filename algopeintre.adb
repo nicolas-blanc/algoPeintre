@@ -19,7 +19,7 @@ begin
 	begin
 		lectureoff.initEnsPoints(DBase(0),fichierOFF,EPoints,max,min);
 
-		lectureoff.initEnsPolygones(DBase(1),fichierOFF,p_EnsPoly); -- p_EnsPoly -> pointeur sur tab de polygone
+		lectureoff.initEnsPolygones(DBase(1),fichierOFF,p_EnsPoly,EPoints,min,max); -- p_EnsPoly -> pointeur sur tab de polygone
 	end;
 
 	lectureoff.close(fichierOFF);

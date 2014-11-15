@@ -1,7 +1,24 @@
 with type_projet;
 package body tri_paquets is
 
---Place sur le premier triangle
+procedure triPaquet (pF : in type_projet.pointsFace; p_poly : in type_projet.AccEns_Poly; minZ, min, max : in float; nbf : in integer) is
+	indice : integer;
+begin
+	indice := Float'Floor(min + nbf * ((minZ - min) / (max - min)));
+	insertionPoly(p_poly,pF,minZ,nbf);
+end triPaquet;
+
+procedure insertionTabPoly (p_poly: in type_projet.AccEns_Poly; pF : in type_projet.pointsFace; minZ: in float; indice : in integer) is 
+begin
+	insertionListPoly(p_poly.all(indice),pF,minZ);
+end insertionTabPoly;
+
+procedure insertionListPoly (list : in out type_projet.ListPoly; pF : in type_projet.pointsFace; minZ : in float) is
+begin -- insertionListPoly
+
+end insertionListPoly;
+
+--Place sur le premier triangleZ
 procedure demarrer (APoly: in type_projet.AccEns_Poly; Pp: in out AListePoly; CaseCour : out integer)is 
 	Ptab: type_projet.AccEns_Poly;
 	i: integer:=0;
@@ -18,13 +35,6 @@ begin
 		end if;
 		CaseCour:=i;
 	end if;
-
-procedure triPaquet (pF : in pointsFace; p_poly : in AccEns_Poly) is
-
-begin
-
-end triPaquet;
-
 end demarrer;
 
 --Renvoi les infos sur l'elem en cours
@@ -53,12 +63,6 @@ procedure finDeSequence () is
 	begin
 
 end finDeSequence;
-
-procedure insertionPoly (APoly: in out type_projet.AccEns_Poly; Pos: in integer; zMin: in float) is 
-
-begin
 	
-	
-end insertionPoly;
 
 end tri_paquets;
