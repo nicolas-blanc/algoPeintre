@@ -10,13 +10,30 @@ end triPaquet;
 
 procedure insertionTabPoly (p_poly: in type_projet.AccEns_Poly; pF : in type_projet.pointsFace; minZ: in float; indice : in integer) is 
 begin
-	insertionListPoly(p_poly.all(indice),pF,minZ);
+	insertionListPoly(p_poly.all(indice),pF,meinZ);
 end insertionTabPoly;
 
 procedure insertionListPoly (list : in out type_projet.ListPoly; pF : in type_projet.pointsFace; minZ : in float) is
+	p : type_projet.AListePoly;
+	l : type_projet.ListPoly := list;
+	lpred : type_projet.ListPoly := list;
 begin -- insertionListPoly
+	while l != null and then minZ < l.all.minZ loop
+		lpred := l;
+		l := l.all.succ;
+	end loop;
 
+	if l = null then
+	else
+		lpred.all.succ := insereTete(l,pF,minZ);
+	end if;
 end insertionListPoly;
+
+function insereTete(list : in out type_projet.ListPoly) return  is
+	
+begin -- insereTete(list : in out type_projet.ListPoly)
+	
+end insereTete(list : in out type_projet.ListPoly);
 
 --Place sur le premier triangleZ
 procedure demarrer (APoly: in type_projet.AccEns_Poly; Pp: in out AListePoly; CaseCour : out integer)is 

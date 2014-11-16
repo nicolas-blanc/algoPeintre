@@ -25,8 +25,9 @@ type AListePoly is access ListePoly; --type pointeur
 
 type ListePoly is
 record
-	p_poly: AccPoinstFaces;
-	Succ:AListePoly;
+	p_poly : AccPoinstFaces;
+	minZ : float;
+	Succ : AListePoly;
 end record;
 --------------------------------------------------------------------------------
 
