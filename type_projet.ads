@@ -36,7 +36,7 @@ type AccEns_Poly is access Ens_Poly;
 --------------------------------------------------------------------------------
 
 --Contient toutes les faces formant la figure.----------------------------------
-type Ens_Poly is array (integer range<>) of ListePoly;
+type Ens_Poly is array (integer range <>) of AListePoly;
 --------------------------------------------------------------------------------
 
 --Contient les données de base, nombre de sommet, nombre de faces et nombre d'arretes

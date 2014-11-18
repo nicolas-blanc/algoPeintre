@@ -13,10 +13,10 @@ begin
 	insertionListPoly(p_poly.all(indice),pF,meinZ);
 end insertionTabPoly;
 
-procedure insertionListPoly (list : in out type_projet.ListPoly; pF : in type_projet.pointsFace; minZ : in float) is
+procedure insertionListPoly (list : in out type_projet.AListPoly; pF : in type_projet.pointsFace; minZ : in float) is
 	p : type_projet.AListePoly;
-	l : type_projet.ListPoly := list;
-	lpred : type_projet.ListPoly := list;
+	l : type_projet.AListPoly := list;
+	lpred : type_projet.AListPoly := list;
 begin -- insertionListPoly
 	while l != null and then minZ < l.all.minZ loop
 		lpred := l;
