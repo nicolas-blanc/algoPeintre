@@ -25,18 +25,18 @@ type AListePoly is access ListePoly; --type pointeur
 
 type ListePoly is
 record
-	p_poly : AccPoinstFaces;
+	p_poly : AccPointsFace;
 	minZ : float;
 	Succ : AListePoly;
 end record;
 --------------------------------------------------------------------------------
 
---Pointeur sur Ens_Poly---------------------------------------------------------
-type AccEns_Poly is access Ens_Poly;
---------------------------------------------------------------------------------
-
 --Contient toutes les faces formant la figure.----------------------------------
 type Ens_Poly is array (integer range <>) of AListePoly;
+--------------------------------------------------------------------------------
+
+--Pointeur sur Ens_Poly---------------------------------------------------------
+type AccEns_Poly is access Ens_Poly;
 --------------------------------------------------------------------------------
 
 --Contient les données de base, nombre de sommet, nombre de faces et nombre d'arretes
