@@ -27,6 +27,8 @@ package body ada_main is
    E061 : Short_Integer; pragma Import (Ada, E061, "system__file_io_E");
    E017 : Short_Integer; pragma Import (Ada, E017, "system__secondary_stack_E");
    E006 : Short_Integer; pragma Import (Ada, E006, "ada__text_io_E");
+   E142 : Short_Integer; pragma Import (Ada, E142, "trad_post_script_E");
+   E139 : Short_Integer; pragma Import (Ada, E139, "tri_paquets_E");
    E096 : Short_Integer; pragma Import (Ada, E096, "lectureoff_E");
 
    Local_Priority_Specific_Dispatching : constant String := "";
@@ -213,6 +215,8 @@ package body ada_main is
       Ada.Text_Io'Elab_Spec;
       Ada.Text_Io'Elab_Body;
       E006 := E006 + 1;
+      E139 := E139 + 1;
+      E142 := E142 + 1;
       E096 := E096 + 1;
    end adainit;
 
@@ -250,10 +254,12 @@ package body ada_main is
 
 --  BEGIN Object file/option list
    --   ./type_projet.o
+   --   ./tri_paquets.o
+   --   ./trad_post_script.o
    --   ./lectureoff.o
    --   ./algopeintre.o
    --   -L./
-   --   -L/usr/lib/gcc/x86_64-linux-gnu/4.8/adalib/
+   --   -L/usr/lib/gcc/i686-linux-gnu/4.8/adalib/
    --   -shared
    --   -lgnat-4.8
 --  END Object file/option list   
