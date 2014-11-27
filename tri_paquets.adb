@@ -35,7 +35,7 @@ procedure insertionListPoly (list : in out AListePoly; pF : in pointsFace; minZ 
 	lpred : AListePoly := list;
 	ptest:AccPointsFace;
 begin -- insertionListPoly
-	while (l /= null) and then (minZ < l.all.minZ) loop
+	while (l /= null) and then (minZ > l.all.minZ) loop
 	--Put_Line("loop \o/");
 		lpred := l;
 		l := l.all.Succ;

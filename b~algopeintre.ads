@@ -309,13 +309,13 @@ package ada_main is
    pragma Export (C, u00136, "system__val_lluB");
    u00137 : constant Version_32 := 16#ad650d51#;
    pragma Export (C, u00137, "system__val_lluS");
-   u00138 : constant Version_32 := 16#2d083cdb#;
+   u00138 : constant Version_32 := 16#59f98cb0#;
    pragma Export (C, u00138, "tri_paquetsB");
    u00139 : constant Version_32 := 16#c7cec2c3#;
    pragma Export (C, u00139, "tri_paquetsS");
    u00140 : constant Version_32 := 16#235d7985#;
    pragma Export (C, u00140, "type_projetS");
-   u00141 : constant Version_32 := 16#bd7d8d74#;
+   u00141 : constant Version_32 := 16#583f2292#;
    pragma Export (C, u00141, "trad_post_scriptB");
    u00142 : constant Version_32 := 16#a0dbdb64#;
    pragma Export (C, u00142, "trad_post_scriptS");

@@ -124,18 +124,18 @@ begin
 						 & " " & Float'Image(((EPoints(Apface.all(0)).y)+transy) * ratio)
 						 & " lineto"); end if;
 					end loop;
+						Put_Line(fichierPost,"gsave");
+	Put_Line(fichierPost,"1 setgray");
+	Put_Line(fichierPost,"fill");
+	Put_Line(fichierPost,"grestore");
+	Put_Line(fichierPost,"0 setgray");
+	Put_Line(fichierPost,"stroke");
 					end if;
 					p_list:=p_list.all.Succ;
 					k:=k+1;
 				end loop;
 	end loop;
 
-	Put_Line(fichierPost,"gsave");
-	Put_Line(fichierPost,"1 setgray");
-	Put_Line(fichierPost,"fill");
-	Put_Line(fichierPost,"grestore");
-	Put_Line(fichierPost,"0 setgray");
-	Put_Line(fichierPost,"stroke");
 	Put_Line(fichierPost,"showpage");
 
 end afficherPostScript;
