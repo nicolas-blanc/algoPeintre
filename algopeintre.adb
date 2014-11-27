@@ -26,7 +26,8 @@ begin
 
 		trad_post_script.afficherTab(p_EnsPoly);
 		
-		trad_post_script.trad(p_EnsPoly,Epoints,minx,maxx,miny,maxy,minz,maxz);
+		--trad_post_script.trad(p_EnsPoly,Epoints,minx,maxx,miny,maxy,minz,maxz);
+		trad_post_script.afficherPostScript(p_EnsPoly,EPoints,minx,maxx,miny,maxy,minz,maxz);
 		
 	end;
 

@@ -35,7 +35,7 @@ package ada_main is
    pragma Export (C, main, "main");
 
    type Version_32 is mod 2 ** 32;
-   u00001 : constant Version_32 := 16#5e098f1c#;
+   u00001 : constant Version_32 := 16#a3c9d8c5#;
    pragma Export (C, u00001, "algopeintreB");
    u00002 : constant Version_32 := 16#3935bd10#;
    pragma Export (C, u00002, "system__standard_libraryB");
@@ -309,20 +309,28 @@ package ada_main is
    pragma Export (C, u00136, "system__val_lluB");
    u00137 : constant Version_32 := 16#ad650d51#;
    pragma Export (C, u00137, "system__val_lluS");
-   u00138 : constant Version_32 := 16#847e03ca#;
+   u00138 : constant Version_32 := 16#2d083cdb#;
    pragma Export (C, u00138, "tri_paquetsB");
    u00139 : constant Version_32 := 16#c7cec2c3#;
    pragma Export (C, u00139, "tri_paquetsS");
    u00140 : constant Version_32 := 16#235d7985#;
    pragma Export (C, u00140, "type_projetS");
-   u00141 : constant Version_32 := 16#21b5b76a#;
+   u00141 : constant Version_32 := 16#bd7d8d74#;
    pragma Export (C, u00141, "trad_post_scriptB");
-   u00142 : constant Version_32 := 16#ab173c74#;
+   u00142 : constant Version_32 := 16#a0dbdb64#;
    pragma Export (C, u00142, "trad_post_scriptS");
    u00143 : constant Version_32 := 16#39591e91#;
    pragma Export (C, u00143, "system__concat_2B");
    u00144 : constant Version_32 := 16#46a6f4a9#;
    pragma Export (C, u00144, "system__concat_2S");
+   u00145 : constant Version_32 := 16#3493e6c0#;
+   pragma Export (C, u00145, "system__concat_4B");
+   u00146 : constant Version_32 := 16#bf29e5eb#;
+   pragma Export (C, u00146, "system__concat_4S");
+   u00147 : constant Version_32 := 16#ae97ef6c#;
+   pragma Export (C, u00147, "system__concat_3B");
+   u00148 : constant Version_32 := 16#cb5c043f#;
+   pragma Export (C, u00148, "system__concat_3S");
    --  BEGIN ELABORATION ORDER
    --  ada%s
    --  interfaces%s
@@ -407,6 +415,10 @@ package ada_main is
    --  system.address_image%s
    --  system.concat_2%s
    --  system.concat_2%b
+   --  system.concat_3%s
+   --  system.concat_3%b
+   --  system.concat_4%s
+   --  system.concat_4%b
    --  system.exception_table%s
    --  system.exception_table%b
    --  ada.io_exceptions%s
