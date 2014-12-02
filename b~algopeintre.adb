@@ -6,30 +6,30 @@ with Ada.Exceptions;
 package body ada_main is
    pragma Warnings (Off);
 
-   E073 : Short_Integer; pragma Import (Ada, E073, "system__os_lib_E");
+   E075 : Short_Integer; pragma Import (Ada, E075, "system__os_lib_E");
    E013 : Short_Integer; pragma Import (Ada, E013, "system__soft_links_E");
-   E117 : Short_Integer; pragma Import (Ada, E117, "system__fat_flt_E");
-   E105 : Short_Integer; pragma Import (Ada, E105, "system__fat_llf_E");
-   E023 : Short_Integer; pragma Import (Ada, E023, "system__exception_table_E");
-   E066 : Short_Integer; pragma Import (Ada, E066, "ada__io_exceptions_E");
-   E049 : Short_Integer; pragma Import (Ada, E049, "ada__tags_E");
-   E047 : Short_Integer; pragma Import (Ada, E047, "ada__streams_E");
-   E068 : Short_Integer; pragma Import (Ada, E068, "interfaces__c_E");
-   E070 : Short_Integer; pragma Import (Ada, E070, "interfaces__c__strings_E");
-   E029 : Short_Integer; pragma Import (Ada, E029, "system__exceptions_E");
-   E065 : Short_Integer; pragma Import (Ada, E065, "system__finalization_root_E");
-   E063 : Short_Integer; pragma Import (Ada, E063, "ada__finalization_E");
-   E086 : Short_Integer; pragma Import (Ada, E086, "system__storage_pools_E");
-   E078 : Short_Integer; pragma Import (Ada, E078, "system__finalization_masters_E");
-   E092 : Short_Integer; pragma Import (Ada, E092, "system__storage_pools__subpools_E");
-   E088 : Short_Integer; pragma Import (Ada, E088, "system__pool_global_E");
-   E076 : Short_Integer; pragma Import (Ada, E076, "system__file_control_block_E");
-   E061 : Short_Integer; pragma Import (Ada, E061, "system__file_io_E");
-   E017 : Short_Integer; pragma Import (Ada, E017, "system__secondary_stack_E");
-   E006 : Short_Integer; pragma Import (Ada, E006, "ada__text_io_E");
-   E142 : Short_Integer; pragma Import (Ada, E142, "trad_post_script_E");
-   E139 : Short_Integer; pragma Import (Ada, E139, "tri_paquets_E");
-   E096 : Short_Integer; pragma Import (Ada, E096, "lectureoff_E");
+   E119 : Short_Integer; pragma Import (Ada, E119, "system__fat_flt_E");
+   E107 : Short_Integer; pragma Import (Ada, E107, "system__fat_llf_E");
+   E019 : Short_Integer; pragma Import (Ada, E019, "system__exception_table_E");
+   E068 : Short_Integer; pragma Import (Ada, E068, "ada__io_exceptions_E");
+   E048 : Short_Integer; pragma Import (Ada, E048, "ada__tags_E");
+   E058 : Short_Integer; pragma Import (Ada, E058, "ada__streams_E");
+   E070 : Short_Integer; pragma Import (Ada, E070, "interfaces__c_E");
+   E072 : Short_Integer; pragma Import (Ada, E072, "interfaces__c__strings_E");
+   E025 : Short_Integer; pragma Import (Ada, E025, "system__exceptions_E");
+   E067 : Short_Integer; pragma Import (Ada, E067, "system__finalization_root_E");
+   E065 : Short_Integer; pragma Import (Ada, E065, "ada__finalization_E");
+   E088 : Short_Integer; pragma Import (Ada, E088, "system__storage_pools_E");
+   E080 : Short_Integer; pragma Import (Ada, E080, "system__finalization_masters_E");
+   E094 : Short_Integer; pragma Import (Ada, E094, "system__storage_pools__subpools_E");
+   E090 : Short_Integer; pragma Import (Ada, E090, "system__pool_global_E");
+   E078 : Short_Integer; pragma Import (Ada, E078, "system__file_control_block_E");
+   E063 : Short_Integer; pragma Import (Ada, E063, "system__file_io_E");
+   E009 : Short_Integer; pragma Import (Ada, E009, "system__secondary_stack_E");
+   E057 : Short_Integer; pragma Import (Ada, E057, "ada__text_io_E");
+   E144 : Short_Integer; pragma Import (Ada, E144, "trad_post_script_E");
+   E141 : Short_Integer; pragma Import (Ada, E141, "tri_paquets_E");
+   E098 : Short_Integer; pragma Import (Ada, E098, "lectureoff_E");
 
    Local_Priority_Specific_Dispatching : constant String := "";
    Local_Interrupt_States : constant String := "";
@@ -38,30 +38,30 @@ package body ada_main is
 
    procedure finalize_library is
    begin
-      E006 := E006 - 1;
+      E057 := E057 - 1;
       declare
          procedure F1;
          pragma Import (Ada, F1, "ada__text_io__finalize_spec");
       begin
          F1;
       end;
-      E078 := E078 - 1;
-      E092 := E092 - 1;
+      E080 := E080 - 1;
+      E094 := E094 - 1;
       declare
          procedure F2;
          pragma Import (Ada, F2, "system__file_io__finalize_body");
       begin
-         E061 := E061 - 1;
+         E063 := E063 - 1;
          F2;
       end;
       declare
          procedure F3;
          pragma Import (Ada, F3, "system__file_control_block__finalize_spec");
       begin
-         E076 := E076 - 1;
+         E078 := E078 - 1;
          F3;
       end;
-      E088 := E088 - 1;
+      E090 := E090 - 1;
       declare
          procedure F4;
          pragma Import (Ada, F4, "system__pool_global__finalize_spec");
@@ -171,53 +171,53 @@ package body ada_main is
 
       System.Soft_Links'Elab_Spec;
       System.Fat_Flt'Elab_Spec;
-      E117 := E117 + 1;
+      E119 := E119 + 1;
       System.Fat_Llf'Elab_Spec;
-      E105 := E105 + 1;
+      E107 := E107 + 1;
       System.Exception_Table'Elab_Body;
-      E023 := E023 + 1;
+      E019 := E019 + 1;
       Ada.Io_Exceptions'Elab_Spec;
-      E066 := E066 + 1;
+      E068 := E068 + 1;
       Ada.Tags'Elab_Spec;
       Ada.Streams'Elab_Spec;
-      E047 := E047 + 1;
+      E058 := E058 + 1;
       Interfaces.C'Elab_Spec;
       Interfaces.C.Strings'Elab_Spec;
       System.Exceptions'Elab_Spec;
-      E029 := E029 + 1;
+      E025 := E025 + 1;
       System.Finalization_Root'Elab_Spec;
-      E065 := E065 + 1;
+      E067 := E067 + 1;
       Ada.Finalization'Elab_Spec;
-      E063 := E063 + 1;
+      E065 := E065 + 1;
       System.Storage_Pools'Elab_Spec;
-      E086 := E086 + 1;
+      E088 := E088 + 1;
       System.Finalization_Masters'Elab_Spec;
       System.Storage_Pools.Subpools'Elab_Spec;
       System.Pool_Global'Elab_Spec;
-      E088 := E088 + 1;
+      E090 := E090 + 1;
       System.File_Control_Block'Elab_Spec;
-      E076 := E076 + 1;
-      System.File_Io'Elab_Body;
-      E061 := E061 + 1;
-      E092 := E092 + 1;
-      System.Finalization_Masters'Elab_Body;
       E078 := E078 + 1;
+      System.File_Io'Elab_Body;
+      E063 := E063 + 1;
+      E094 := E094 + 1;
+      System.Finalization_Masters'Elab_Body;
+      E080 := E080 + 1;
+      E072 := E072 + 1;
       E070 := E070 + 1;
-      E068 := E068 + 1;
       Ada.Tags'Elab_Body;
-      E049 := E049 + 1;
+      E048 := E048 + 1;
       System.Soft_Links'Elab_Body;
       E013 := E013 + 1;
       System.Os_Lib'Elab_Body;
-      E073 := E073 + 1;
+      E075 := E075 + 1;
       System.Secondary_Stack'Elab_Body;
-      E017 := E017 + 1;
+      E009 := E009 + 1;
       Ada.Text_Io'Elab_Spec;
       Ada.Text_Io'Elab_Body;
-      E006 := E006 + 1;
-      E139 := E139 + 1;
-      E142 := E142 + 1;
-      E096 := E096 + 1;
+      E057 := E057 + 1;
+      E141 := E141 + 1;
+      E144 := E144 + 1;
+      E098 := E098 + 1;
    end adainit;
 
    procedure Ada_Main_Program;
@@ -259,7 +259,7 @@ package body ada_main is
    --   ./lectureoff.o
    --   ./algopeintre.o
    --   -L./
-   --   -L/usr/lib/gcc/i686-linux-gnu/4.8/adalib/
+   --   -L/usr/lib/gcc/x86_64-linux-gnu/4.8/adalib/
    --   -shared
    --   -lgnat-4.8
 --  END Object file/option list   

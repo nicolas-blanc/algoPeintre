@@ -1,15 +1,16 @@
 with Ada.Text_IO;
-with type_projet;
-use type_projet;
+with type_projet; use type_projet;
 with lectureoff;
 with trad_post_script;
+with Ada.Command_Line; use  Ada.Command_Line;
 
 use Ada.Text_IO;
 
 procedure algopeintre is 
 	fichierOFF : file_type;
 	DBase : type_projet.DonBase;
-	nom_fichier : string(1..7) := "cow.off";
+
+	nom_fichier : string(1..Argument(1)'length) := Argument(1);	
 
 	maxx, minx, maxy, miny, maxz, minz : float := 0.0;
 
@@ -26,7 +27,7 @@ begin
 
 		trad_post_script.afficherTab(p_EnsPoly);
 		
-		trad_post_script.trad(p_EnsPoly,Epoints,minx,maxx,miny,maxy,minz,maxz);
+		trad_post_script.trad(nom_fichier,p_EnsPoly,Epoints,minx,maxx,miny,maxy,minz,maxz);
 		
 	end;
 

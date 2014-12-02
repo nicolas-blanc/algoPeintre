@@ -2,7 +2,7 @@ with tri_paquets;
 
 package body trad_post_script is 
 
-procedure trad(APoly: in AccEns_Poly; EPoints : in Ens_points; minx,maxx,miny,maxy,minz,maxz: in float) is
+procedure trad(nom_fichier : in string; APoly: in AccEns_Poly; EPoints : in Ens_points; minx,maxx,miny,maxy,minz,maxz: in float) is
 CaseCour: integer:=0;
 fichierPost: file_type;
 
@@ -16,7 +16,7 @@ begin
 	if minx <0.0 then transx := -minx; end if;
 	if miny <0.0 then transy := -miny; end if;
 
-	create(fichierPost,Out_File,"testPost.txt");
+	create(fichierPost,Out_File,nom_fichier & ".txt");
 	Put_Line(fichierPost,"%!PS");
 
 	Ptemp:=APoly.all(0);
@@ -58,17 +58,23 @@ begin
 end trad;
 
 procedure afficherTab(APoly: in type_projet.AccEns_Poly) is
+	p_list : AListePoly;
+	k : integer := 0;
 begin
-	for i in APoly.all'range loop 
-			if APoly.all(i) /= null then
-			--else Put_Line("APoly pas nul");
-			--end if;
-		if APoly.all(i).all.p_poly /= null then
-			for j in APoly.all(i).all.p_poly.all'range loop
-				Put_Line(Integer'image(APoly.all(i).all.p_poly.all'range));
-			end loop;
+	for i in APoly.all'range loop
+		Put_Line(Integer'Image(i));
+		p_list := APoly(i);
+		k := 0;
+		while p_list /= null loop
+			Put_Line("     " & Integer'Image(k));
+			if p_list.all.p_poly /= null then
+				for j in p_list.all.p_poly.all'range loop
+					Put_Line("          " & Integer'image(j));
+				end loop;
 			end if;
-		end if;
+			p_list := p_list.all.Succ;
+			k := k + 1;
+		end loop;
 	end loop;
 
 end afficherTab;
