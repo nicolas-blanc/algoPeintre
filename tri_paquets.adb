@@ -35,7 +35,7 @@ procedure insertionListPoly (list : in out AListePoly; pF : in pointsFace; minZ 
 	lpred : AListePoly := list;
 	ptest:AccPointsFace;
 begin -- insertionListPoly
-	while (l /= null) and then (minZ < l.all.minZ) loop
+	while (l /= null) and then (minZ > l.all.minZ) loop
 	--Put_Line("loop \o/");
 		lpred := l;
 		l := l.all.Succ;
@@ -113,7 +113,7 @@ begin
 	if (Ptab /= null) then 
 	--Put_Line("j'suis dans le if du demarrer");
 		Pp:= Ptab.all(i); --if Pp = null then Put_Line("Pp est nulle"); end if;
-		i:=i+1;
+		--i:=i+1;
 		if (Pp = null) then
 		--Put_Line("j'suis dans le 2eme if du demarrer");
 			while (i < 5804 and Pp = null) loop -- Erreur ici, a voir si c'est 0 ?
