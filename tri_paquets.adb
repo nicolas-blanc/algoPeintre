@@ -7,6 +7,10 @@ procedure triPaquet (pF : in pointsFace; p_poly : in AccEns_Poly; minZ, min, max
 begin
 	indice := Integer(min + float(nbf) * ((minZ - min) / (max - min))); --Invalide Integer * Float --> recuperer int to float
 	insertionTabPoly(p_poly,pF,minZ,indice);
+
+	--Calcul d'indice de rémi
+	--wIndex_courant := Integer(Float'Floor(Float(aNbFormes) * ((getMinZForme(wCourant.all.F, aSommets) - aMinZ) / (aMaxZ-aMinZ))));
+
 end triPaquet;
 
 procedure insertionTabPoly (p_poly: in AccEns_Poly; pF : in pointsFace; minZ: in float; indice : in integer) is 
@@ -24,7 +28,7 @@ begin
 	--if p_poly.all(indice) = null then Put_Line("p_poly.all(indice) est nulle!!!!");
 	--else Put_Line("p_poly.all(indice) pas nul"); end if; 
 
-
+	Put_Line("Mon indice est: " & Integer'Image(indice));
 	insertionListPoly(p_poly.all(indice),pF,minZ);
 end insertionTabPoly;
 
