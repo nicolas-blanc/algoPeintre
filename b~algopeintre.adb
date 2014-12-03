@@ -27,6 +27,7 @@ package body ada_main is
    E063 : Short_Integer; pragma Import (Ada, E063, "system__file_io_E");
    E009 : Short_Integer; pragma Import (Ada, E009, "system__secondary_stack_E");
    E057 : Short_Integer; pragma Import (Ada, E057, "ada__text_io_E");
+   E142 : Short_Integer; pragma Import (Ada, E142, "type_projet_E");
    E144 : Short_Integer; pragma Import (Ada, E144, "trad_post_script_E");
    E141 : Short_Integer; pragma Import (Ada, E141, "tri_paquets_E");
    E098 : Short_Integer; pragma Import (Ada, E098, "lectureoff_E");
@@ -215,6 +216,8 @@ package body ada_main is
       Ada.Text_Io'Elab_Spec;
       Ada.Text_Io'Elab_Body;
       E057 := E057 + 1;
+      type_projet'elab_spec;
+      E142 := E142 + 1;
       E141 := E141 + 1;
       E144 := E144 + 1;
       E098 := E098 + 1;

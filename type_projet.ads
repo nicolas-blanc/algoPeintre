@@ -43,4 +43,9 @@ type AccEns_Poly is access Ens_Poly;
 type DonBase is array (integer range 0..2) of integer; --Contient le nombre de sommet/face/arrete
 --------------------------------------------------------------------------------
 
+-- EXCEPTIONS ------------------------------------------------------------------
+
+NBR_LIGNES : EXCEPTION;
+--------------------------------------------------------------------------------
+
 end type_projet;

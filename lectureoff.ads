@@ -1,11 +1,10 @@
-with Ada.Text_IO;
-use Ada.Text_IO;
-with Ada.Integer_Text_IO;
-use Ada.Integer_Text_IO;
-with Ada.Float_Text_IO;
-use Ada.Float_Text_IO;
+with Ada.Text_IO; use Ada.Text_IO;
+with Ada.Integer_Text_IO; use Ada.Integer_Text_IO;
+with Ada.Float_Text_IO; use Ada.Float_Text_IO;
+with Ada.IO_Exceptions; use Ada.IO_Exceptions;
 with type_projet;
 with tri_paquets;
+
 
 package lectureoff is
 --/!\ Modif Antoine 13/11. Toutes les fonctions.
