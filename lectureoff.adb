@@ -105,7 +105,8 @@ begin
 	end loop;
 exception
 	when ADA.IO_EXCEPTIONS.END_ERROR => Put_Line("Erreur sur le nombre de ligne du fichier");
-		raise type_projet.NBR_LIGNES;
+		raise type_projet.NBR_LIGNES_ERROR;
+	when others => raise;
 end initEnsPolygones;
 
 end lectureoff;

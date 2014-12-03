@@ -5,12 +5,16 @@ package body tri_paquets is
 procedure triPaquet (pF : in pointsFace; p_poly : in AccEns_Poly; minZ, min, max : in float; nbf : in integer) is
 	indice : integer;
 begin
-	indice := Integer(min + float(nbf) * ((minZ - min) / (max - min))); --Invalide Integer * Float --> recuperer int to float
+	indice := abs(Integer(Float'Floor(min + float(nbf) * ((minZ - min) / (max - min))))); --Invalide Integer * Float --> recuperer int to float
 	insertionTabPoly(p_poly,pF,minZ,indice);
 
 	--Calcul d'indice de rémi
 	--wIndex_courant := Integer(Float'Floor(Float(aNbFormes) * ((getMinZForme(wCourant.all.F, aSommets) - aMinZ) / (aMaxZ-aMinZ))));
-
+exception
+	when NEGATIF_ERROR => Put_Line("Indice "&Integer'Image(indice));
+			Put_Line("min "&Float'Image(min));Put_Line("nbf "&Integer'Image(nbf));
+			Put_Line("minZ"&Float'Image(minZ));Put_Line("max "&Float'Image(max));
+			raise NEGATIF_ERROR;
 end triPaquet;
 
 procedure insertionTabPoly (p_poly: in AccEns_Poly; pF : in pointsFace; minZ: in float; indice : in integer) is 
@@ -28,8 +32,11 @@ begin
 	--if p_poly.all(indice) = null then Put_Line("p_poly.all(indice) est nulle!!!!");
 	--else Put_Line("p_poly.all(indice) pas nul"); end if; 
 
-	Put_Line("Mon indice est: " & Integer'Image(indice));
 	insertionListPoly(p_poly.all(indice),pF,minZ);
+
+exception
+	when CONSTRAINT_ERROR => Put_Line("Erreur sur le tableau dans insertionTabPoly");
+			raise NEGATIF_ERROR;
 end insertionTabPoly;
 
 procedure insertionListPoly (list : in out AListePoly; pF : in pointsFace; minZ : in float) is

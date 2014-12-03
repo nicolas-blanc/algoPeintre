@@ -36,5 +36,5 @@ begin
 	lectureoff.close(fichierOFF);
 
 exception
-	when NBR_LIGNES => Put_line("Fin du programme avec une erreur");
+	when others => Put_line("Fin du programme avec une erreur");
 end algopeintre;
