@@ -8,8 +8,8 @@ package body ada_main is
 
    E073 : Short_Integer; pragma Import (Ada, E073, "system__os_lib_E");
    E013 : Short_Integer; pragma Import (Ada, E013, "system__soft_links_E");
-   E117 : Short_Integer; pragma Import (Ada, E117, "system__fat_flt_E");
-   E105 : Short_Integer; pragma Import (Ada, E105, "system__fat_llf_E");
+   E119 : Short_Integer; pragma Import (Ada, E119, "system__fat_flt_E");
+   E101 : Short_Integer; pragma Import (Ada, E101, "system__fat_llf_E");
    E023 : Short_Integer; pragma Import (Ada, E023, "system__exception_table_E");
    E066 : Short_Integer; pragma Import (Ada, E066, "ada__io_exceptions_E");
    E049 : Short_Integer; pragma Import (Ada, E049, "ada__tags_E");
@@ -27,8 +27,8 @@ package body ada_main is
    E061 : Short_Integer; pragma Import (Ada, E061, "system__file_io_E");
    E017 : Short_Integer; pragma Import (Ada, E017, "system__secondary_stack_E");
    E006 : Short_Integer; pragma Import (Ada, E006, "ada__text_io_E");
-   E142 : Short_Integer; pragma Import (Ada, E142, "trad_post_script_E");
-   E139 : Short_Integer; pragma Import (Ada, E139, "tri_paquets_E");
+   E144 : Short_Integer; pragma Import (Ada, E144, "trad_post_script_E");
+   E141 : Short_Integer; pragma Import (Ada, E141, "tri_paquets_E");
    E096 : Short_Integer; pragma Import (Ada, E096, "lectureoff_E");
 
    Local_Priority_Specific_Dispatching : constant String := "";
@@ -171,9 +171,9 @@ package body ada_main is
 
       System.Soft_Links'Elab_Spec;
       System.Fat_Flt'Elab_Spec;
-      E117 := E117 + 1;
+      E119 := E119 + 1;
       System.Fat_Llf'Elab_Spec;
-      E105 := E105 + 1;
+      E101 := E101 + 1;
       System.Exception_Table'Elab_Body;
       E023 := E023 + 1;
       Ada.Io_Exceptions'Elab_Spec;
@@ -215,8 +215,8 @@ package body ada_main is
       Ada.Text_Io'Elab_Spec;
       Ada.Text_Io'Elab_Body;
       E006 := E006 + 1;
-      E139 := E139 + 1;
-      E142 := E142 + 1;
+      E141 := E141 + 1;
+      E144 := E144 + 1;
       E096 := E096 + 1;
    end adainit;
 

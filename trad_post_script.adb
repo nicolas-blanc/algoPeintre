@@ -89,20 +89,27 @@ Apface : AccPointsFace;
 fichierPost: file_type;
 begin
 
-	create(fichierPost,Out_File,"testPostAfficherTab");
+	create(fichierPost,Out_File,"testCube");
 	Put_Line(fichierPost,"%!PS");
 
-	if minx < 0.0 then transx:=-minx;end if;
-	if miny < 0.0 then transy:=-miny;end if;
+	if minx < 0.0 then transx:=-minx; end if;
+	if miny < 0.0 then transy:=-miny; end if;
 
 	--ratiox:= (maxx + transx) /590.0;
 	--ratioy:=(maxy + transy) /840.0;
-	ratiox:= 590.0/((maxx+ transx) - (minx-transx));
-	ratioy:= 840.0/((maxy+ transy) - (miny-transy));
+	ratiox:= 590.0/((maxx+ transx) - (minx+transx));
+	ratioy:= 840.0/((maxy+ transy) - (miny+transy));
 
-	if ratiox > ratioy then ratio:=ratiox;
-	else ratio:=ratioy; 
+	if ratiox > ratioy then ratio:=ratioy;
+	else ratio:=ratiox; 
 	end if;
+	Put_Line("transx" & Float'Image(transx));
+	Put_Line("calc1" & Float'Image((maxx+ transx) - (minx-transx)));
+
+	Put_Line("transy" & Float'Image(transy));
+	Put_Line("Ratio" & Float'Image(ratio));
+	Put_Line("Ratiox" & Float'Image(ratiox));
+	Put_Line("Ratioy" & Float'Image(ratioy));
 
 	for i in APoly.all'range loop 
 			p_list:=APoly(i);
@@ -125,11 +132,11 @@ begin
 						 & " lineto"); end if;
 					end loop;
 						Put_Line(fichierPost,"gsave");
-	Put_Line(fichierPost,"1 setgray");
-	Put_Line(fichierPost,"fill");
-	Put_Line(fichierPost,"grestore");
-	Put_Line(fichierPost,"0 setgray");
-	Put_Line(fichierPost,"stroke");
+						Put_Line(fichierPost,"1 setgray");
+						Put_Line(fichierPost,"fill");
+						Put_Line(fichierPost,"grestore");
+						Put_Line(fichierPost,"0 setgray");
+						Put_Line(fichierPost,"stroke");
 					end if;
 					p_list:=p_list.all.Succ;
 					k:=k+1;

@@ -9,7 +9,7 @@ use Ada.Text_IO;
 procedure algopeintre is 
 	fichierOFF : file_type;
 	DBase : type_projet.DonBase;
-	nom_fichier : string(1..7) := "cow.off";
+	nom_fichier : string(1..8) := "cube.off";
 
 	maxx, minx, maxy, miny, maxz, minz : float := 0.0;
 

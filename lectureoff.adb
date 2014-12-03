@@ -4,12 +4,15 @@ procedure init (monFichier: out file_type; nom : in string; DBase : out type_pro
 	s1 : string(1..3);
 begin
 	open(monFichier,In_File,nom);
+	Put_Line("J'ai ouvert le fichier!");
 	Get(monFichier,s1);
+	Put_Line("J'ai lu: " & s1);
 	if s1 = "OFF" then
-		Get(monFichier,DBase(0));
-		Get(monFichier,DBase(1));
-		Get(monFichier,DBase(2));
+		Get(monFichier,DBase(0)); Put_Line("1");
+		Get(monFichier,DBase(1)); Put_Line("2");
+		Get(monFichier,DBase(2)); Put_Line("3");
 	end if;
+	Put_Line("J'ai lu les bases");
 end init;
 
 procedure close (f : in out file_type) is
@@ -38,7 +41,7 @@ begin
 	Get(f,p.y);
 	Get(f,p.z);
 	EPoints(0):=p;
-	--Put_Line("J'ai x=" & Float'Image(EPoints(0).x));
+	Put_Line("J'ai x=" & Float'Image(EPoints(0).x));
 
 	maxz := p.z;
 	minz := p.z;
@@ -48,7 +51,7 @@ begin
 	maxy := p.y;
 
 	for i in 1..nbs-1 loop
-	---Put_Line("J'suis en i=" & Integer'Image(i));
+	Put_Line("J'suis en i=" & Integer'Image(i));
 		Get(f,p.x);--Put_Line("J'ai x=" & Float'Image(p.x));
 		Get(f,p.y);--Put_Line("J'ai y=" & Float'Image(p.y));
 		Get(f,p.z);--Put_Line("J'ai z=" & Float'Image(p.z));
