@@ -10,13 +10,14 @@ procedure algopeintre is
 	fichierOFF : file_type;
 	DBase : type_projet.DonBase;
 
-	nom_fichier : string(1..Argument(1)'length) := Argument(1);	
+	nom_fichier_off : string(1..Argument(1)'length) := Argument(1);
+	nom_fichier : string(1..Argument(2)'length) := Argument(2);
 
 	maxx, minx, maxy, miny, maxz, minz : float := 0.0;
 
 	p_EnsPoly : type_projet.AccEns_Poly	; -- pointeur sur tab polygone
 begin
-	lectureoff.init(fichierOFF,nom_fichier,DBase); -- Nom du fichier a passer en parametre
+	lectureoff.init(fichierOFF,nom_fichier_off,DBase); -- Nom du fichier a passer en parametre
 
 	declare
 		EPoints : type_projet.Ens_points(0..DBase(0));
@@ -29,12 +30,14 @@ begin
 
 		--trad_post_script.trad(p_EnsPoly,Epoints,minx,maxx,miny,maxy,minz,maxz);*
 
-		trad_post_script.afficherPostScript(p_EnsPoly,EPoints,minx,maxx,miny,maxy,minz,maxz);
+		trad_post_script.afficherPostScript(nom_fichier,p_EnsPoly,EPoints,minx,maxx,miny,maxy,minz,maxz);
 		
 	end;
 
 	lectureoff.close(fichierOFF);
 
 exception
-	when others => Put_line("Fin du programme avec une erreur");
+	when NBR_LIGNES_ERROR => Put_line("Fin du programme avec une erreur NBR_LIGNES_ERROR");
+	when INSERTION_ERROR => Put_line("Fin du programme avec une erreur INSERTION_ERROR");
+	when ERROR => Put_line("Fin du programme avec une erreur ERROR");
 end algopeintre;

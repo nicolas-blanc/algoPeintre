@@ -20,28 +20,15 @@ begin
 	Ada.Text_IO.close(f);
 end close;
 
-procedure reopen(f:in out file_type;nom:in string)is
-t1,t2,t3:integer:=0;
-s1 : string(1..3);
-begin
-	open(f,In_File,nom);
-	Get(f,s1);
-	if s1 = "OFF" then
-		Get(f,t1);
-		Get(f,t2);
-		Get(f,t3);
-	end if;
-end reopen;
-
 procedure initEnsPoints (nbs: in integer; f: in file_type; EPoints: out type_projet.Ens_points; maxx,minx,maxy,miny,maxz,minz : in out float) is
 	p:type_projet.point;
 begin
 
-	Get(f,p.x);
-	Get(f,p.y);
 	Get(f,p.z);
+	Get(f,p.y);
+	Get(f,p.x);
 	EPoints(0):=p;
-	Put_Line("J'ai x=" & Float'Image(EPoints(0).x));
+	-- Put_Line("J'ai x=" & Float'Image(EPoints(0).x));
 
 	maxz := p.z;
 	minz := p.z;
@@ -51,10 +38,10 @@ begin
 	maxy := p.y;
 
 	for i in 1..nbs-1 loop
-	Put_Line("J'suis en i=" & Integer'Image(i));
-		Get(f,p.x);--Put_Line("J'ai x=" & Float'Image(p.x));
+		-- Put_Line("J'suis en i=" & Integer'Image(i));
+		Get(f,p.z);--Put_Line("J'ai x=" & Float'Image(p.x));
 		Get(f,p.y);--Put_Line("J'ai y=" & Float'Image(p.y));
-		Get(f,p.z);--Put_Line("J'ai z=" & Float'Image(p.z));
+		Get(f,p.x);--Put_Line("J'ai z=" & Float'Image(p.z));
 		EPoints(i) := p;
 
 		if p.z < minz then
@@ -66,7 +53,7 @@ begin
 		if p.x < minx then
 			minx := p.x;
 		elsif p.x > maxx then
-		 maxx := p.x;
+		 	maxx := p.x;
 		end if;
 
 		if p.y < miny then 
@@ -79,7 +66,7 @@ begin
 end initEnsPoints;
 
 procedure initEnsPolygones (nbf: in integer; f: in file_type; p_poly: out type_projet.AccEns_Poly; EPoints: in type_projet.Ens_points; min, max : in float) is
-	t,test : integer;
+	t : integer;
 	d : integer;
 	minZ : float;
 begin
@@ -100,6 +87,7 @@ begin
 					minZ := EPoints(d).z;
 				end if;
 			end loop;
+			Put_Line("indice = "&Integer'Image(i));
 			tri_paquets.tripaquet(faceTemp,p_poly,minZ,min,max,nbf);
 		end;
 	end loop;

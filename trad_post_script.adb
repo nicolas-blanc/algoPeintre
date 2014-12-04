@@ -64,21 +64,24 @@ begin
 	for i in APoly.all'range loop 
 			p_list:=APoly(i);
 			k:=0;
+			Put_Line(Integer'Image(i));
 			while p_list /=null loop
+				Put_Line("     "&Integer'Image(k));
 				if p_list.all.p_poly /= null then
-					for j in p_list.all.p_poly.all'range loop
+					--for j in p_list.all.p_poly.all'range loop
 						--Put_Line(Integer'image((APoly.all(i).all.p_poly.all)'length));
-						Put_Line(Integer'Image(j));
-					end loop;
-					end if;
-					p_list:=p_list.all.Succ;
-					k:=k+1;
-				end loop;
+						--Put_Line(Integer'Image(j)&);
+					--end loop;
+					Put_Line("          "&Float'Image(p_list.all.minZ));
+				end if;
+				p_list:=p_list.all.Succ;
+				k:=k+1;
+			end loop;
 	end loop;
 
 end afficherTab;
 
-procedure afficherPostScript(APoly: in type_projet.AccEns_Poly;EPoints : in Ens_points; minx,maxx,miny,maxy,minz,maxz: in float) is
+procedure afficherPostScript(nom_fichier : in string; APoly: in type_projet.AccEns_Poly;EPoints : in Ens_points; minx,maxx,miny,maxy,minz,maxz: in float) is
 p_list: AListePoly;
 k:integer:=0;
 transx:float:=0.0;
@@ -89,8 +92,9 @@ Apface : AccPointsFace;
 fichierPost: file_type;
 begin
 
-	create(fichierPost,Out_File,"testHouse2");
+	create(fichierPost,Out_File,nom_fichier);
 	Put_Line(fichierPost,"%!PS");
+	Put_Line(fichierPost,"0 setlinewidth");
 
 	if minx < 0.0 then transx:=-minx; end if;
 	if miny < 0.0 then transy:=-miny; end if;
