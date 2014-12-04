@@ -4,113 +4,57 @@ package body tri_paquets is
 
 procedure triPaquet (pF : in pointsFace; p_poly : in AccEns_Poly; minZ, min, max : in float; nbf : in integer) is
 	indice : integer;
+	elem : ListePoly;
+	p : AccPointsFace;
 begin
-	indice := abs(Integer(Float'Floor(float(nbf) * ((minZ - min) / (max - min))))); --Invalide Integer * Float --> recuperer int to float
-	insertionTabPoly(p_poly,pF,minZ,indice);
-
 	--Calcul d'indice de rémi
 	--wIndex_courant := Integer(Float'Floor(Float(aNbFormes) * ((getMinZForme(wCourant.all.F, aSommets) - aMinZ) / (aMaxZ-aMinZ))));
+	indice := Integer(Float'Floor(Float(nbf) * ((minZ - min) / (max-min))));
+	--indice := abs(Integer(Float'Floor(float(nbf) * ((minZ - min) / (max - min))))); --Invalide Integer * Float --> recuperer int to float
+
+	p := new pointsFace(0..pF'length-1);
+	p.all := pF;
+	elem.p_poly := p;
+	elem.minZ := minZ;
+	elem.Succ := null;
+
+	insertGrowing(p_poly.all(indice),elem);
+
 exception
-	when NEGATIF_ERROR => Put_Line("Indice "&Integer'Image(indice));
+	when INSERTION_ERROR => Put_Line("Indice "&Integer'Image(indice));
 			Put_Line("min "&Float'Image(min));Put_Line("nbf "&Integer'Image(nbf));
 			Put_Line("minZ"&Float'Image(minZ));Put_Line("max "&Float'Image(max));
-			raise NEGATIF_ERROR;
+			raise INSERTION_ERROR;
 	when others => raise;
 end triPaquet;
 
-procedure insertionTabPoly (p_poly: in AccEns_Poly; pF : in pointsFace; minZ: in float; indice : in integer) is 
-test:integer:=0;
+Procedure insertGrowing (l: in out AListePoly; elem: in ListePoly) is
+	prec , p, p_elem : AListePoly;
 begin
+	p_elem := new ListePoly;
+	p_elem.all := elem;
+	p_elem.all.Succ := null;
 
-	--Put_Line("J'suis dans inserTabPoly");
-	--if p_poly = null then Put_Line("p_poly est nulle!!!!");
-	--else Put_Line("p_poly pas nul"); end if; 
-
-	--test:=p_poly.all'length;
-	--Put_Line(Integer'Image(test));
-	--Put_Line(Integer'Image(indice));
-
-	--if p_poly.all(indice) = null then Put_Line("p_poly.all(indice) est nulle!!!!");
-	--else Put_Line("p_poly.all(indice) pas nul"); end if; 
-
-	insertionListPoly(p_poly.all(indice),pF,minZ);
-
-exception
-	when CONSTRAINT_ERROR => Put_Line("Erreur sur le tableau dans insertionTabPoly");
-			raise NEGATIF_ERROR;
-	when others => raise;
-end insertionTabPoly;
-
-procedure insertionListPoly (list : in out AListePoly; pF : in pointsFace; minZ : in float) is
-	p : AListePoly;
-	pTemp:ListePoly;
-	l : AListePoly := list;
-	lpred : AListePoly := list;
-	ptest:AccPointsFace;
-begin -- insertionListPoly
-	while (l /= null) and then (minZ < l.all.minZ) loop
-	--Put_Line("loop \o/");
-		lpred := l;
-		l := l.all.Succ;
-	end loop;
-
-	ptest:= new pointsFace(0..pF'length-1);
-	ptest.all:=pF;
-	pTemp.p_poly:=ptest;
-	pTemp.minZ:=minZ;
-	pTemp.Succ:=null;
-
-	--Put_Line("On tente l'accès à l");
-	--Put_Line(Float'Image(l.all.minZ));
-
-	--Put_Line("On tente l'accès à lpred");
-	--Put_Line(Float'Image(lpred.all.minZ));
-	--Put_Line("On va tenter l'insereTete");
-	
-	--lpred.all.Succ := insereTete(lpred.all.Succ,pF,minZ);
-	insereTete(lpred,pTemp);
-	list:=lpred;
-	exception
-	when others => Put_Line("Erreur dans insertionListPoly");
-			raise ERROR;
-end insertionListPoly;
-
---function insereTete (list : in AListePoly; pF : in pointsFace; minZ : in float) return AListePoly is
---	p : AListePoly;
---	f : ListePoly;
---	ptest: AccPointsFace;
---begin -- insereTete
---	Put_Line("J'suis dans l'insereTete");
---	ptest := new PointsFace(0..pF'length);
---	Put_Line("Init PointsFace");
---	ptest.all := pF;
---	Put_Line("ptest assigné");
-
---	f.p_poly := ptest;
---	f.minZ := minZ;
---	f.Succ := list;
---	Put_Line("f est rempli");
-
---	p := new ListePoly;
---	Put_Line("p créé");
---	p.all := f;
---	Put_Line("p assigné");
-
---	return p;
---end insereTete;
-
-procedure insereTete (list: in out AListePoly; elem: in ListePoly) is
-	
-	pTemp:AListePoly;
-	
-	begin
-		--Put_Line(Float'Image(elem.minZ));
-		pTemp:= new ListePoly;
-		pTemp.all:=elem;
-		pTemp.all.Succ:=list;
-		list:=pTemp;
-
-end insereTete;
+	p := l;
+	if p /= null then
+		while p /= null and then p.all.minZ < elem.minZ loop
+			prec := p;
+			p := p.all.succ;
+		end loop;
+		
+		if prec = null then
+			p_elem.all.succ := l;
+			l := p_elem;
+		else
+			prec.all.succ := p_elem;
+			prec := prec.all.succ;
+			prec.all.succ := p;
+		end if;
+	else
+		l := p_elem;
+		l.all.succ := null;
+	end if;
+end insertGrowing;
 
 --Place sur le premier triangleZ
 procedure demarrer (APoly: in AccEns_Poly; Pp: in out AListePoly; CaseCour : out integer) is 
