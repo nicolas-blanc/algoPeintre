@@ -47,6 +47,7 @@ type DonBase is array (integer range 0..2) of integer; --Contient le nombre de s
 
 NBR_LIGNES_ERROR : EXCEPTION;
 NEGATIF_ERROR : EXCEPTION;
+ERROR : EXCEPTION;
 --------------------------------------------------------------------------------
 
 end type_projet;

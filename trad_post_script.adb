@@ -89,7 +89,7 @@ Apface : AccPointsFace;
 fichierPost: file_type;
 begin
 
-	create(fichierPost,Out_File,"testCube");
+	create(fichierPost,Out_File,"testHouse2");
 	Put_Line(fichierPost,"%!PS");
 
 	if minx < 0.0 then transx:=-minx; end if;

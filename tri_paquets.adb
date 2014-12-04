@@ -15,6 +15,7 @@ exception
 			Put_Line("min "&Float'Image(min));Put_Line("nbf "&Integer'Image(nbf));
 			Put_Line("minZ"&Float'Image(minZ));Put_Line("max "&Float'Image(max));
 			raise NEGATIF_ERROR;
+	when others => raise;
 end triPaquet;
 
 procedure insertionTabPoly (p_poly: in AccEns_Poly; pF : in pointsFace; minZ: in float; indice : in integer) is 
@@ -37,6 +38,7 @@ begin
 exception
 	when CONSTRAINT_ERROR => Put_Line("Erreur sur le tableau dans insertionTabPoly");
 			raise NEGATIF_ERROR;
+	when others => raise;
 end insertionTabPoly;
 
 procedure insertionListPoly (list : in out AListePoly; pF : in pointsFace; minZ : in float) is
@@ -68,7 +70,9 @@ begin -- insertionListPoly
 	--lpred.all.Succ := insereTete(lpred.all.Succ,pF,minZ);
 	insereTete(lpred,pTemp);
 	list:=lpred;
-
+	exception
+	when others => Put_Line("Erreur dans insertionListPoly");
+			raise ERROR;
 end insertionListPoly;
 
 --function insereTete (list : in AListePoly; pF : in pointsFace; minZ : in float) return AListePoly is
