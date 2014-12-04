@@ -91,6 +91,7 @@ begin
 
 	create(fichierPost,Out_File,"testHouse2");
 	Put_Line(fichierPost,"%!PS");
+	Put_Line(fichierPost,"0 setlinewidth");
 
 	if minx < 0.0 then transx:=-minx; end if;
 	if miny < 0.0 then transy:=-miny; end if;
@@ -111,6 +112,38 @@ begin
 	Put_Line("Ratiox" & Float'Image(ratiox));
 	Put_Line("Ratioy" & Float'Image(ratioy));
 
+	--tri_paquets.demarrer(APoly,p_list,k);
+	--Put_Line("J'ai fini demarrer");
+	--Put_Line("Ma longueur est de: " & Integer'Image(APoly.all'length));
+
+	--while not(tri_paquets.finDeSequence (APoly,k))loop
+	--	Put_Line("J'suis dans le while");
+	--	Put_Line("Ma finDeSequence vaut: " & boolean'image(tri_paquets.finDeSequence (APoly,k)) & " Ma case vaut: " & Integer'Image(k));
+	--	
+	--	Apface:=tri_paquets.elemCourant(p_list);
+	--	for j in Apface'range loop
+	--		Put_Line("Je suis en j: " & integer'Image(j));
+	--		if (j=0) then Put_Line(fichierPost,Float'Image(((EPoints(Apface.all(j)).x) + transx) * ratio)
+	--			& " "
+	--			& Float'Image(((EPoints(Apface.all(j)).y)+transy) * ratio) 
+	--			& " moveto");
+	--		else Put_Line(fichierPost,Float'Image(((EPoints(Apface.all(j)).x) + transx) * ratio) 
+	--			& " " & Float'Image(((EPoints(Apface.all(j)).y)+transy) * ratio)
+	--			& " lineto");
+	--		end if;
+	--		if (j=Apface'last) then Put_Line(fichierPost,Float'Image(((EPoints(Apface.all(0)).x) + transx) * ratio)
+	--			& " " & Float'Image(((EPoints(Apface.all(0)).y)+transy) * ratio)
+	--			& " lineto"); 
+	--		end if;
+	--	end loop;
+	--		Put_Line(fichierPost,"gsave");
+	--		Put_Line(fichierPost,"1 setgray");
+	--		Put_Line(fichierPost,"fill");
+	--		Put_Line(fichierPost,"grestore");
+	--		--Put_Line(fichierPost,Integer'Image() & "");
+	--		Put_Line(fichierPost,"stroke");
+	--		tri_paquets.avancer(APoly,p_list,k);
+	--end loop;
 	for i in APoly.all'range loop 
 			p_list:=APoly(i);
 			k:=0;
@@ -129,20 +162,22 @@ begin
 						end if;
 						if (j=Apface'last) then Put_Line(fichierPost,Float'Image(((EPoints(Apface.all(0)).x) + transx) * ratio)
 						 & " " & Float'Image(((EPoints(Apface.all(0)).y)+transy) * ratio)
-						 & " lineto"); end if;
+						 & " lineto"); 
+						end if;
 					end loop;
 						Put_Line(fichierPost,"gsave");
 						Put_Line(fichierPost,"1 setgray");
 						Put_Line(fichierPost,"fill");
 						Put_Line(fichierPost,"grestore");
-						Put_Line(fichierPost,"0 setgray");
+						--Put_Line(fichierPost,Integer'Image() & "");
 						Put_Line(fichierPost,"stroke");
-					end if;
-					p_list:=p_list.all.Succ;
-					k:=k+1;
-				end loop;
+				end if;
+				Put_Line("J'suis dans la case: " & Integer'Image(i));
+				p_list:=p_list.all.Succ;
+				k:=k+1;
+			end loop;
 	end loop;
-
+	Put_Line("Longueur tab: " & Integer'image(APoly.all'length));
 	Put_Line(fichierPost,"showpage");
 
 end afficherPostScript;

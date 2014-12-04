@@ -5,7 +5,7 @@ package body tri_paquets is
 procedure triPaquet (pF : in pointsFace; p_poly : in AccEns_Poly; minZ, min, max : in float; nbf : in integer) is
 	indice : integer;
 begin
-	indice := abs(Integer(Float'Floor(min + float(nbf) * ((minZ - min) / (max - min))))); --Invalide Integer * Float --> recuperer int to float
+	indice := abs(Integer(Float'Floor(float(nbf) * ((minZ - min) / (max - min))))); --Invalide Integer * Float --> recuperer int to float
 	insertionTabPoly(p_poly,pF,minZ,indice);
 
 	--Calcul d'indice de rémi
@@ -48,7 +48,7 @@ procedure insertionListPoly (list : in out AListePoly; pF : in pointsFace; minZ 
 	lpred : AListePoly := list;
 	ptest:AccPointsFace;
 begin -- insertionListPoly
-	while (l /= null) and then (minZ > l.all.minZ) loop
+	while (l /= null) and then (minZ < l.all.minZ) loop
 	--Put_Line("loop \o/");
 		lpred := l;
 		l := l.all.Succ;
@@ -114,30 +114,20 @@ end insereTete;
 
 --Place sur le premier triangleZ
 procedure demarrer (APoly: in AccEns_Poly; Pp: in out AListePoly; CaseCour : out integer) is 
-	Ptab: AccEns_Poly;
 	i: integer:=0;
+	trouve:boolean;
 begin
-	Ptab:=APoly;
-
-	--if Ptab = null then
-	--Put_Line("j'suis dans demarrer, Ptab est nulle -_-");
-	--else 
-	--Put_Line("j'suis dans demarrer, Ptab est pas nulle \o/");
-	--end if;
-
-	if (Ptab /= null) then 
-	--Put_Line("j'suis dans le if du demarrer");
-		Pp:= Ptab.all(i); --if Pp = null then Put_Line("Pp est nulle"); end if;
-		--i:=i+1;
-		if (Pp = null) then
-		--Put_Line("j'suis dans le 2eme if du demarrer");
-			while (i < 5804 and Pp = null) loop -- Erreur ici, a voir si c'est 0 ?
-				Pp:=Ptab.all(i);
-				i:= i+1;	
+		trouve:=False;
+		Pp:= APoly(i);
+		while not(trouve) and i<=APoly.all'length loop
+			if Pp /= null then
+				trouve:=True;
+			else
+				i:=i+1;
+				Pp:=APoly(i);
+			end if;
 		end loop;
-		end if;
 		CaseCour:=i;
-	end if;
 end demarrer;
 
 --Renvoi les infos sur l'elem en cours
@@ -146,36 +136,31 @@ function elemCourant(Pp: in AListePoly) return AccPointsFace is
 	begin
 		return Pp.all.p_poly;
 end elemCourant;
+
 --Fait avancer de 1 element
 procedure avancer (APoly: in AccEns_Poly; Pp: in out AListePoly; CaseCour: in out integer) is
+trouve:boolean;
+begin
+	trouve:=False;
+	if Pp.all.Succ /= null then
+		Pp:=Pp.all.Succ;
+	else 
+		while not(trouve) and CaseCour < APoly.all'length loop
+			CaseCour:=CaseCour+1;
+			Pp:=APoly(CaseCour);
+			if Pp /= null then
+				trouve:= True;
+			end if;
+		end loop;
 
-	begin
-		if (Pp.all.succ /= null) then 
-			Pp:= Pp.all.succ;
-		else 
-			while (APoly.all(CaseCour+1) /= null) loop
-				CaseCour:=CaseCour+1;
-			end loop;
-			Pp:= APoly.all(CaseCour);
-		end if;
+	end if;
 
 end avancer;
 
 --Vérifie si on est en fin de séquence
---function finDeSequence (APoly: in AccEns_Poly; Pp: in AListePoly; CaseCour: in integer) is
---	
---	case:integer:=0;
---	begin
---
---	case:=CaseCour;
---	if (Pp.all.succ /= null) then 
---			Pp:= Pp.all.succ;
---		else 
---			while (APoly.all(case+1) /= null and case <= ) loop
---				case:=case+1;
---			end loop;
---		end if;
-
---end finDeSequence;
+function finDeSequence (APoly: in AccEns_Poly; CaseCour: in integer) return boolean is
+begin
+	return CaseCour = APoly.all'length;
+end finDeSequence;
 
 end tri_paquets;

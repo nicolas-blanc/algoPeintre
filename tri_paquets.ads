@@ -18,6 +18,6 @@ procedure insereTete (list: in out AListePoly; elem: in ListePoly);
 procedure demarrer (APoly: in type_projet.AccEns_Poly; Pp: in out type_projet.AListePoly; CaseCour : out integer);--Place sur le premier triangle
 function elemCourant(Pp: in type_projet.AListePoly) return type_projet.AccPointsFace;--Renvoi les infos sur l'elem en cours
 procedure avancer (APoly: in type_projet.AccEns_Poly; Pp: in out type_projet.AListePoly; CaseCour: in out integer);--Fait avancer de 1 element
---function finDeSequence;--Vérifie si on est en fin de séquence
+function finDeSequence (APoly: in AccEns_Poly; CaseCour: in integer) return boolean;--Vérifie si on est en fin de séquence
 
 end tri_paquets;

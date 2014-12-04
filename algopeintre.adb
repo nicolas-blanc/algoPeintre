@@ -35,6 +35,6 @@ begin
 
 	lectureoff.close(fichierOFF);
 
-exception
-	when others => Put_line("Fin du programme avec une erreur");
+--exception
+--	when others => Put_line("Fin du programme avec une erreur");
 end algopeintre;
