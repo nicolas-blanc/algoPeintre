@@ -24,9 +24,9 @@ procedure initEnsPoints (nbs: in integer; f: in file_type; EPoints: out type_pro
 	p:type_projet.point;
 begin
 
-	Get(f,p.z);
-	Get(f,p.y);
 	Get(f,p.x);
+	Get(f,p.y);
+	Get(f,p.z);
 	EPoints(0):=p;
 	-- Put_Line("J'ai x=" & Float'Image(EPoints(0).x));
 
@@ -39,9 +39,9 @@ begin
 
 	for i in 1..nbs-1 loop
 		-- Put_Line("J'suis en i=" & Integer'Image(i));
-		Get(f,p.z);--Put_Line("J'ai x=" & Float'Image(p.x));
+		Get(f,p.x);--Put_Line("J'ai x=" & Float'Image(p.x));
 		Get(f,p.y);--Put_Line("J'ai y=" & Float'Image(p.y));
-		Get(f,p.x);--Put_Line("J'ai z=" & Float'Image(p.z));
+		Get(f,p.z);--Put_Line("J'ai z=" & Float'Image(p.z));
 		EPoints(i) := p;
 
 		if p.z < minz then
