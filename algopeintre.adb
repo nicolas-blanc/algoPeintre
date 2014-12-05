@@ -39,16 +39,20 @@ begin
 
 			lectureoff.initEnsPolygones(DBase(1),fichierOFF,p_EnsPoly,EPoints,minz,maxz); -- p_EnsPoly -> pointeur sur tab de polygone
 
-			trad_post_script.afficherTab(p_EnsPoly);
+			-- trad_post_script.afficherTab(p_EnsPoly);
 
-			--trad_post_script.trad(p_EnsPoly,Epoints,minx,maxx,miny,maxy,minz,maxz);*
+			-- trad_post_script.trad(p_EnsPoly,Epoints,minx,maxx,miny,maxy,minz,maxz);*
 
 			trad_post_script.afficherPostScript(nom_fichier,p_EnsPoly,EPoints,minx,maxx,miny,maxy,minz,maxz);
 			
 		end;
+
+		Put_line("Fin de l'execution du programme");
+		Put_line("Vous pouvez maintenant ouvrir le fichier : " & nom_fichier);
 	end;
 
 	lectureoff.close(fichierOFF);
+
 
 exception
 	when NBR_LIGNES_ERROR => Put_line("Fin du programme avec une erreur NBR_LIGNES_ERROR");

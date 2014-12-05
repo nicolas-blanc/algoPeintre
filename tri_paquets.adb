@@ -84,7 +84,6 @@ end elemCourant;
 --Fait avancer de 1 element
 procedure avancer (APoly: in AccEns_Poly; Pp: in out AListePoly; CaseCour: in out integer) is
 begin
-	trouve:=False;
 	if Pp.all.Succ /= null then
 		Pp:=Pp.all.Succ;
 	else 

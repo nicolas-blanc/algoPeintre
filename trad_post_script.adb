@@ -28,7 +28,7 @@ begin
 	while (Ptemp /= null) loop
 		Etemp:=tri_paquets.elemCourant(Ptemp);
 		for i in Etemp.all'range loop
-			Put_Line("J'suis en i=" & Integer'Image(i));
+			-- Put_Line("J'suis en i=" & Integer'Image(i));
 			if (i=0) then 
 							Put(fichierPost,Float'Image(EPoints(Etemp.all(i)).x + 20.0));--Aller chercher le point dans le tabelau
 							Put(fichierPost," ");
@@ -108,26 +108,26 @@ begin
 	if ratiox > ratioy then ratio:=ratioy;
 	else ratio:=ratiox; 
 	end if;
-	Put_Line("transx" & Float'Image(transx));
-	Put_Line("calc1" & Float'Image((maxx+ transx) - (minx-transx)));
+	-- Put_Line("transx" & Float'Image(transx));
+	-- Put_Line("calc1" & Float'Image((maxx+ transx) - (minx-transx)));
 
-	Put_Line("transy" & Float'Image(transy));
-	Put_Line("Ratio" & Float'Image(ratio));
-	Put_Line("Ratiox" & Float'Image(ratiox));
-	Put_Line("Ratioy" & Float'Image(ratioy));
+	-- Put_Line("transy" & Float'Image(transy));
+	-- Put_Line("Ratio" & Float'Image(ratio));
+	-- Put_Line("Ratiox" & Float'Image(ratiox));
+	-- Put_Line("Ratioy" & Float'Image(ratioy));
 
 	tri_paquets.demarrer(APoly,p_list,k);
-	Put_Line("J'ai fini demarrer");
-	Put_Line("Ma longueur est de: " & Integer'Image(APoly.all'length));
+	-- Put_Line("J'ai fini demarrer");
+	-- Put_Line("Ma longueur est de: " & Integer'Image(APoly.all'length));
 
 	while not(tri_paquets.finDeSequence (APoly,k))loop
-		Put_Line("J'suis dans le while");
-		Put_Line("Ma finDeSequence vaut: " & boolean'image(tri_paquets.finDeSequence (APoly,k)) & " Ma case vaut: " & Integer'Image(k));
+		-- Put_Line("J'suis dans le while");
+		-- Put_Line("Ma finDeSequence vaut: " & boolean'image(tri_paquets.finDeSequence (APoly,k)) & " Ma case vaut: " & Integer'Image(k));
 		
-		Put_Line("CaseCour= " & Integer'Image(k));
+		-- Put_Line("CaseCour= " & Integer'Image(k));
 		Apface:=tri_paquets.elemCourant(p_list);
 		for j in Apface'range loop
-			Put_Line("Je suis en j: " & integer'Image(j));
+			-- Put_Line("Je suis en j: " & integer'Image(j));
 			if (j=0) then Put_Line(fichierPost,Float'Image(((EPoints(Apface.all(j)).x) + transx) * ratio)
 				& " "
 				& Float'Image(((EPoints(Apface.all(j)).y)+transy) * ratio) 
@@ -141,16 +141,16 @@ begin
 				& " lineto"); 
 			end if;
 		end loop;
-			Put_Line(fichierPost,"gsave");
-			Put_Line(fichierPost,"1 setgray");
-			Put_Line(fichierPost,"fill");
-			Put_Line(fichierPost,"grestore");
-			--Put_Line(fichierPost,Integer'Image() & "");
-			Put_Line(fichierPost,"stroke");
+			-- Put_Line(fichierPost,"gsave");
+			-- Put_Line(fichierPost,"1 setgray");
+			-- Put_Line(fichierPost,"fill");
+			-- Put_Line(fichierPost,"grestore");
+			-- Put_Line(fichierPost,Integer'Image() & "");
+			-- Put_Line(fichierPost,"stroke");
 			tri_paquets.avancer(APoly,p_list,k);
 	end loop;
 	
-	Put_Line("Longueur tab: " & Integer'image(APoly.all'length));
+	-- Put_Line("Longueur tab: " & Integer'image(APoly.all'length));
 	Put_Line(fichierPost,"showpage");
 
 end afficherPostScript;

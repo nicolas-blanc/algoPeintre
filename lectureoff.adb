@@ -8,9 +8,9 @@ begin
 	Get(monFichier,s1);
 	-- Put_Line("J'ai lu: " & s1);
 	if s1 = "OFF" then
-		Get(monFichier,DBase(0)); Put_Line("1");
-		Get(monFichier,DBase(1)); Put_Line("2");
-		Get(monFichier,DBase(2)); Put_Line("3");
+		Get(monFichier,DBase(0)); -- Put_Line("1");
+		Get(monFichier,DBase(1)); -- Put_Line("2");
+		Get(monFichier,DBase(2)); -- Put_Line("3");
 	end if;
 	-- Put_Line("J'ai lu les bases");
 end init;
@@ -94,7 +94,7 @@ procedure initEnsPolygones (nbf: in integer; f: in file_type; p_poly: out type_p
 begin
 	p_poly := new type_projet.Ens_Poly(0..nbf);
 	for i in 0..(nbf-1) loop
-		---Put_Line("J'suis en i=" & Integer'Image(i));--Va jusqu'a 5801 au lieu de 5804 mais est deja à la fin?! 
+		--Put_Line("J'suis en i=" & Integer'Image(i));--Va jusqu'a 5801 au lieu de 5804 mais est deja à la fin?! 
 		Get(f,t);
 		declare
 			faceTemp: type_projet.pointsFace(0..t-1);
