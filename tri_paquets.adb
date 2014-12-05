@@ -83,20 +83,18 @@ end elemCourant;
 
 --Fait avancer de 1 element
 procedure avancer (APoly: in AccEns_Poly; Pp: in out AListePoly; CaseCour: in out integer) is
-trouve:boolean;
 begin
 	trouve:=False;
 	if Pp.all.Succ /= null then
 		Pp:=Pp.all.Succ;
 	else 
-		while not(trouve) and CaseCour < APoly.all'length loop
+		CaseCour:=CaseCour+1;
+		while CaseCour < APoly.all'length and then APoly(CaseCour) = null loop
 			CaseCour:=CaseCour+1;
-			Pp:=APoly(CaseCour);
-			if Pp /= null then
-				trouve:= True;
-			end if;
 		end loop;
-
+		if CaseCour < APoly.all'length then
+		Pp:=APoly(CaseCour);
+		end if;
 	end if;
 
 end avancer;
