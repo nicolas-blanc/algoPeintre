@@ -4,15 +4,15 @@ procedure init (monFichier: out file_type; nom : in string; DBase : out type_pro
 	s1 : string(1..3);
 begin
 	open(monFichier,In_File,nom);
-	Put_Line("J'ai ouvert le fichier!");
+	-- Put_Line("J'ai ouvert le fichier!");
 	Get(monFichier,s1);
-	Put_Line("J'ai lu: " & s1);
+	-- Put_Line("J'ai lu: " & s1);
 	if s1 = "OFF" then
 		Get(monFichier,DBase(0)); Put_Line("1");
 		Get(monFichier,DBase(1)); Put_Line("2");
 		Get(monFichier,DBase(2)); Put_Line("3");
 	end if;
-	Put_Line("J'ai lu les bases");
+	-- Put_Line("J'ai lu les bases");
 end init;
 
 procedure close (f : in out file_type) is
@@ -20,13 +20,27 @@ begin
 	Ada.Text_IO.close(f);
 end close;
 
-procedure initEnsPoints (nbs: in integer; f: in file_type; EPoints: out type_projet.Ens_points; maxx,minx,maxy,miny,maxz,minz : in out float) is
+procedure initEnsPoints (vue : in integer; nbs: in integer; f: in file_type; EPoints: out type_projet.Ens_points; maxx,minx,maxy,miny,maxz,minz : in out float) is
 	p:type_projet.point;
+
+	procedure lirePoint (f: in file_type; p1, p2, p3 : in out float) is
+	begin -- lirePoint
+		Get(f,p1);
+		Get(f,p2);
+		Get(f,p3);		
+	end lirePoint;
 begin
 
-	Get(f,p.z);
-	Get(f,p.y);
-	Get(f,p.x);
+--	Get(f,p.x);
+--	Get(f,p.y);
+--	Get(f,p.z);
+	if vue = 1 then
+		lirePoint(f,p.z,p.y,p.x);
+	elsif vue = 2 then
+		lirePoint(f,p.x,p.z,p.y);
+	else
+		lirePoint(f,p.x,p.y,p.z);
+	end if;
 	EPoints(0):=p;
 	-- Put_Line("J'ai x=" & Float'Image(EPoints(0).x));
 
@@ -39,9 +53,17 @@ begin
 
 	for i in 1..nbs-1 loop
 		-- Put_Line("J'suis en i=" & Integer'Image(i));
-		Get(f,p.z);--Put_Line("J'ai x=" & Float'Image(p.x));
-		Get(f,p.y);--Put_Line("J'ai y=" & Float'Image(p.y));
-		Get(f,p.x);--Put_Line("J'ai z=" & Float'Image(p.z));
+--		Get(f,p.x);--Put_Line("J'ai x=" & Float'Image(p.x));
+--		Get(f,p.y);--Put_Line("J'ai y=" & Float'Image(p.y));
+--		Get(f,p.z);--Put_Line("J'ai z=" & Float'Image(p.z));
+
+		if vue = 1 then
+			lirePoint(f,p.z,p.y,p.x);
+		elsif vue = 2 then
+			lirePoint(f,p.x,p.z,p.y);
+		else
+			lirePoint(f,p.x,p.y,p.z);
+		end if;
 		EPoints(i) := p;
 
 		if p.z < minz then
@@ -87,7 +109,7 @@ begin
 					minZ := EPoints(d).z;
 				end if;
 			end loop;
-			Put_Line("indice = "&Integer'Image(i));
+			-- Put_Line("indice = "&Integer'Image(i));
 			tri_paquets.tripaquet(faceTemp,p_poly,minZ,min,max,nbf);
 		end;
 	end loop;

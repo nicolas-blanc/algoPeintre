@@ -101,8 +101,8 @@ begin
 
 	--ratiox:= (maxx + transx) /590.0;
 	--ratioy:=(maxy + transy) /840.0;
-	ratiox:= 590.0/((maxx+ transx) - (minx+transx));
-	ratioy:= 840.0/((maxy+ transy) - (miny+transy));
+	ratiox:= 590.0/((maxx) - (minx));
+	ratioy:= 840.0/((maxy) - (miny));
 
 	if ratiox > ratioy then ratio:=ratioy;
 	else ratio:=ratiox; 
