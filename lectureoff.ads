@@ -7,10 +7,18 @@ with tri_paquets;
 
 
 package lectureoff is
---/!\ Modif Antoine 13/11. Toutes les fonctions.
-procedure initEnsPoints (vue : in integer; nbs: in integer; f: in file_type; EPoints: out type_projet.Ens_points; maxx,minx,maxy,miny,maxz,minz : in out float);
-procedure initEnsPolygones (nbf: in integer; f: in file_type; p_poly: out type_projet.AccEns_Poly; EPoints: in type_projet.Ens_points; min, max : in float);
+
+--Procedure initialisant le nombre de points et de polygnes que contient le fichier.
+--Necessaire pour l'initialisation des autres srucutres de données.
 procedure init (monFichier: out file_type; nom : in string; DBase : out type_projet.DonBase);
 procedure close (f : in out file_type);
+
+--Procedure remplissant le tableau de points en les lisant dans le fichier.
+--Créer un point differement selon le type de vue choisie.
+procedure initEnsPoints (vue : in integer; nbs: in integer; f: in file_type; EPoints: out type_projet.Ens_points; maxx,minx,maxy,miny,maxz,minz : in out float);
+
+--Procedure lisant l'ensemble des polygones.
+--Remplit le tableau de liste de polygones.
+procedure initEnsPolygones (nbf: in integer; f: in file_type; p_poly: out type_projet.AccEns_Poly; EPoints: in type_projet.Ens_points; min, max : in float);
 
 end lectureoff;

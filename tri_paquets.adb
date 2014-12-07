@@ -2,6 +2,7 @@
 
 package body tri_paquets is
 
+--Procedure effectuant un tri par paquet.
 procedure triPaquet (pF : in pointsFace; p_poly : in AccEns_Poly; minZ, min, max : in float; nbf : in integer) is
 	indice : integer;
 	elem : ListePoly;
@@ -28,6 +29,7 @@ exception
 	when others => raise;
 end triPaquet;
 
+--Effectue une insertion triée dans une liste.
 Procedure insertGrowing (l: in out AListePoly; elem: in ListePoly) is
 	prec , p, p_elem : AListePoly;
 begin
@@ -56,7 +58,7 @@ begin
 	end if;
 end insertGrowing;
 
---Place sur le premier triangleZ
+--Place sur le premier polygone du tableau de liste de polygone.
 procedure demarrer (APoly: in AccEns_Poly; Pp: in out AListePoly; CaseCour : out integer) is 
 	i: integer:=0;
 	trouve:boolean;
@@ -74,14 +76,14 @@ begin
 		CaseCour:=i;
 end demarrer;
 
---Renvoi les infos sur l'elem en cours
+--Renvoi les infos sur l'element en cours
 function elemCourant(Pp: in AListePoly) return AccPointsFace is
 --pFacesTemp : AccPointsFace;
 	begin
 		return Pp.all.p_poly;
 end elemCourant;
 
---Fait avancer de 1 element
+--Fait avancer de 1 polygone.
 procedure avancer (APoly: in AccEns_Poly; Pp: in out AListePoly; CaseCour: in out integer) is
 begin
 	if Pp.all.Succ /= null then
@@ -98,7 +100,7 @@ begin
 
 end avancer;
 
---Vérifie si on est en fin de séquence
+--Vérifie si on a terminé le parcours du tableau de liste de polygones.
 function finDeSequence (APoly: in AccEns_Poly; CaseCour: in integer) return boolean is
 begin
 	return CaseCour = APoly.all'length;

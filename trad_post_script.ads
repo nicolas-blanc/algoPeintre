@@ -7,8 +7,12 @@ use type_projet;
 
 package trad_post_script is
 
-procedure trad(nom_fichier : in string; APoly: in type_projet.AccEns_Poly; EPoints : in type_projet.Ens_points; minx,maxx,miny,maxy,minz,maxz: in float);
+--Procedure de test qui nous permettait d'afficher une partie du tableau de polygone.
 procedure afficherTab(APoly: in type_projet.AccEns_Poly);
+
+--Procedure utilisant les structures de données crées précédemment pour créer un fichier PostScipt dessinant l'image.
+--Les paramètres sont le nom du fichier à créer, le pointeur sur le tableau contenant l'ensemble des polygones, un pointeur sur le tabelau contenant
+--tous les points, et enfin les minimums et maximums globaux pour chaque coordonées.
 procedure afficherPostScript(nom_fichier : in string; APoly: in type_projet.AccEns_Poly;EPoints : in Ens_points; minx,maxx,miny,maxy,minz,maxz: in float);
 
 end trad_post_script;

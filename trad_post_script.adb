@@ -1,62 +1,8 @@
 with tri_paquets;
-
+with Ada.Real_Time; use Ada.Real_Time;
 package body trad_post_script is 
 
-procedure trad(nom_fichier : in string; APoly: in AccEns_Poly; EPoints : in Ens_points; minx,maxx,miny,maxy,minz,maxz: in float) is
-CaseCour: integer:=0;
-fichierPost: file_type;
-
-Ptemp: AListePoly;
-Etemp: AccPointsFace;
-
-transx,transy,trans: float:=0.0;
-
-begin
-
-	if minx <0.0 then transx := -minx; end if;
-	if miny <0.0 then transy := -miny; end if;
-
-	create(fichierPost,Out_File,nom_fichier & ".txt");
-	Put_Line(fichierPost,"%!PS");
-
-	Ptemp:=APoly.all(0);
-
-
-	tri_paquets.demarrer(APoly,Ptemp,CaseCour);
-	--if Ptemp = null then Put_Line("j'suis apres demarrer, Ptemp est nulle -_-");end if;
-
-	while (Ptemp /= null) loop
-		Etemp:=tri_paquets.elemCourant(Ptemp);
-		for i in Etemp.all'range loop
-			-- Put_Line("J'suis en i=" & Integer'Image(i));
-			if (i=0) then 
-							Put(fichierPost,Float'Image(EPoints(Etemp.all(i)).x + 20.0));--Aller chercher le point dans le tabelau
-							Put(fichierPost," ");
-							Put(fichierPost,Float'Image(EPoints(Etemp.all(i)).y + 20.0));
-						    Put_Line(fichierPost," moveto");
-			end if; 
-
-			Put(fichierPost,Float'Image(EPoints(Etemp.all(i)).x + 20.0));
-			Put(fichierPost," ");
-			Put(fichierPost,Float'Image(EPoints(Etemp.all(i)).y + 20.0));
-			Put_Line(fichierPost," lineto");
-
-		end loop;
-
-		tri_paquets.avancer(APoly,Ptemp,CaseCour);
-
-	end loop;
-
-	Put_Line(fichierPost,"gsave");
-	Put_Line(fichierPost,"1 setgray");
-	Put_Line(fichierPost,"fill");
-	Put_Line(fichierPost,"grestore");
-	Put_Line(fichierPost,"0 setgray");
-	Put_Line(fichierPost,"stroke");
-
-
-end trad;
-
+--Procedure de test qui nous permettait d'afficher une partie du tableau de polygone.
 procedure afficherTab(APoly: in type_projet.AccEns_Poly) is
 p_list: AListePoly;
 k:integer:=0;
@@ -81,78 +27,92 @@ begin
 
 end afficherTab;
 
---Procedure utilisant les structures de données crées précédemment pour créer un fichier PostScipt représentant 
+--Procedure utilisant les structures de données crées précédemment pour créer un fichier PostScipt dessinant l'image.
+--Les paramètres sont le nom du fichier à créer, le pointeur sur le tableau contenant l'ensemble des polygones, un pointeur sur le tabelau contenant
+--tous les points, et enfin les minimums et maximums globaux pour chaque coordonées.
 procedure afficherPostScript(nom_fichier : in string; APoly: in type_projet.AccEns_Poly;EPoints : in Ens_points; minx,maxx,miny,maxy,minz,maxz: in float) is
+
 p_list: AListePoly;
 k:integer:=0;
 transx:float:=0.0;
 transy:float:=0.0;
 ratio,ratiox,ratioy:float:=0.0;
+centrex,centrey: float;
 
 Apface : AccPointsFace;
 fichierPost: file_type;
+
+tempsD,tempsF:Ada.Real_Time.Time;
+Duree:Ada.Real_Time.Time_Span;
+
 begin
+
+	tempsD := Ada.Real_Time.Clock;
 
 	create(fichierPost,Out_File,nom_fichier);
 	Put_Line(fichierPost,"%!PS");
 	Put_Line(fichierPost,"0 setlinewidth");
 
+--Calcul des ratios d'agrandisements, des translations etc pour afficher le desson le mieux possible.
 	if minx < 0.0 then transx:=-minx; end if;
 	if miny < 0.0 then transy:=-miny; end if;
 
-	--ratiox:= (maxx + transx) /590.0;
-	--ratioy:=(maxy + transy) /840.0;
-	ratiox:= 590.0/((maxx) - (minx));
-	ratioy:= 840.0/((maxy) - (miny));
+	ratiox:= 595.0/((maxx) - (minx));
+	ratioy:= 842.0/((maxy) - (miny));
 
 	if ratiox > ratioy then ratio:=ratioy;
 	else ratio:=ratiox; 
 	end if;
-	-- Put_Line("transx" & Float'Image(transx));
-	-- Put_Line("calc1" & Float'Image((maxx+ transx) - (minx-transx)));
 
-	-- Put_Line("transy" & Float'Image(transy));
-	-- Put_Line("Ratio" & Float'Image(ratio));
-	-- Put_Line("Ratiox" & Float'Image(ratiox));
-	-- Put_Line("Ratioy" & Float'Image(ratioy));
+	--if (maxx + transx) * ratio > 590.0 or (maxy + transy) * ratio > 840.0 then
+	--ratio:=ratio/2.0;
+	--end if;
 
+	centrex :=(595.0 - ((maxx+transx)*ratio))/2.0;
+	centrey :=(842.0 - ((maxy+transy)*ratio))/2.0;
+	if centrex <= 0.0 then centrex := 0.0; end if;
+	if centrey <= 0.0 then centrey := 0.0; end if;
+
+--On démarre le parcours des polygones.
 	tri_paquets.demarrer(APoly,p_list,k);
-	-- Put_Line("J'ai fini demarrer");
-	-- Put_Line("Ma longueur est de: " & Integer'Image(APoly.all'length));
 
+--On parcours tous les polygones.
 	while not(tri_paquets.finDeSequence (APoly,k))loop
-		-- Put_Line("J'suis dans le while");
-		-- Put_Line("Ma finDeSequence vaut: " & boolean'image(tri_paquets.finDeSequence (APoly,k)) & " Ma case vaut: " & Integer'Image(k));
-		
-		-- Put_Line("CaseCour= " & Integer'Image(k));
+		--On recupère l'element courant afin de le traiter.
 		Apface:=tri_paquets.elemCourant(p_list);
 		for j in Apface'range loop
-			-- Put_Line("Je suis en j: " & integer'Image(j));
-			if (j=0) then Put_Line(fichierPost,Float'Image(((EPoints(Apface.all(j)).x) + transx) * ratio)
+			--On met dans le fichier PostScript les différents points composant le polygone.
+			if (j=0) then Put_Line(fichierPost,Float'Image((((EPoints(Apface.all(j)).x) + transx) * ratio) + centrex)
 				& " "
-				& Float'Image(((EPoints(Apface.all(j)).y)+transy) * ratio) 
+				& Float'Image((((EPoints(Apface.all(j)).y)+transy) * ratio) + centrey) 
 				& " moveto");
-			else Put_Line(fichierPost,Float'Image(((EPoints(Apface.all(j)).x) + transx) * ratio) 
-				& " " & Float'Image(((EPoints(Apface.all(j)).y)+transy) * ratio)
+			else Put_Line(fichierPost,Float'Image((((EPoints(Apface.all(j)).x) + transx) * ratio) + centrex) 
+				& " " & Float'Image((((EPoints(Apface.all(j)).y)+transy) * ratio)+ centrey)
 				& " lineto");
 			end if;
-			if (j=Apface'last) then Put_Line(fichierPost,Float'Image(((EPoints(Apface.all(0)).x) + transx) * ratio)
-				& " " & Float'Image(((EPoints(Apface.all(0)).y)+transy) * ratio)
+			if (j=Apface'last) then Put_Line(fichierPost,Float'Image((((EPoints(Apface.all(0)).x) + transx) * ratio) + centrex)
+				& " " & Float'Image((((EPoints(Apface.all(0)).y)+transy) * ratio)+ centrey)
 				& " lineto"); 
 			end if;
 		end loop;
-			-- Put_Line(fichierPost,"gsave");
-			-- Put_Line(fichierPost,"1 setgray");
-			-- Put_Line(fichierPost,"fill");
-			-- Put_Line(fichierPost,"grestore");
-			-- Put_Line(fichierPost,Integer'Image() & "");
-			-- Put_Line(fichierPost,"stroke");
+			--On finit par ajouter les elements necessaires au bon affichage du polygone.
+			Put_Line(fichierPost,"gsave");
+			Put_Line(fichierPost,"1 setgray");
+			Put_Line(fichierPost,"fill");
+			Put_Line(fichierPost,"grestore");
+			Put_Line(fichierPost,"stroke");
+			--Enfin, on avance dans les polygones.
 			tri_paquets.avancer(APoly,p_list,k);
 	end loop;
 	
-	-- Put_Line("Longueur tab: " & Integer'image(APoly.all'length));
 	Put_Line(fichierPost,"showpage");
 
+	tempsF := Ada.Real_Time.Clock;
+
+	Duree := tempsD - tempsF;
+
+	--Put_Line("La durée de la traduction est de : " & Integer'Image(Duree / Milliseconds(1)));
+	Put_Line("La durée de la traduction est de : " & Integer'Image(Duree / Milliseconds(1)));
 end afficherPostScript;
 
 end trad_post_script;
