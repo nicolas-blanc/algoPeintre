@@ -2,33 +2,6 @@
 
 package body tri_paquets is
 
---Procedure effectuant un tri par paquet.
-procedure triPaquet (pF : in pointsFace; p_poly : in AccEns_Poly; minZ, min, max : in float; nbf : in integer) is
-	indice : integer;
-	elem : ListePoly;
-	p : AccPointsFace;
-begin
-	--Calcul d'indice de rémi
-	--wIndex_courant := Integer(Float'Floor(Float(aNbFormes) * ((getMinZForme(wCourant.all.F, aSommets) - aMinZ) / (aMaxZ-aMinZ))));
-	indice := Integer(Float'Floor(Float(nbf) * ((minZ - min) / (max-min))));
-	--indice := abs(Integer(Float'Floor(float(nbf) * ((minZ - min) / (max - min))))); --Invalide Integer * Float --> recuperer int to float
-
-	p := new pointsFace(0..pF'length-1);
-	p.all := pF;
-	elem.p_poly := p;
-	elem.minZ := minZ;
-	elem.Succ := null;
-
-	insertGrowing(p_poly.all(indice),elem);
-
-exception
-	when INSERTION_ERROR => Put_Line("Indice "&Integer'Image(indice));
-			Put_Line("min "&Float'Image(min));Put_Line("nbf "&Integer'Image(nbf));
-			Put_Line("minZ"&Float'Image(minZ));Put_Line("max "&Float'Image(max));
-			raise INSERTION_ERROR;
-	when others => raise;
-end triPaquet;
-
 --Effectue une insertion triée dans une liste.
 Procedure insertGrowing (l: in out AListePoly; elem: in ListePoly) is
 	prec , p, p_elem : AListePoly;
@@ -57,6 +30,31 @@ begin
 		l.all.succ := null;
 	end if;
 end insertGrowing;
+
+--Procedure effectuant un tri par paquet.
+procedure triPaquet (pF : in pointsFace; p_poly : in AccEns_Poly; minZ, min, max : in float; nbf : in integer) is
+	indice : integer;
+	elem : ListePoly;
+	p : AccPointsFace;
+begin
+	--Calcul de l'indice dansle tableau
+	indice := Integer(Float'Floor(Float(nbf) * ((minZ - min) / (max-min))));
+
+	p := new pointsFace(0..pF'length-1);
+	p.all := pF;
+	elem.p_poly := p;
+	elem.minZ := minZ;
+	elem.Succ := null;
+
+	insertGrowing(p_poly.all(indice),elem);
+
+exception
+	when INSERTION_ERROR => Put_Line("Indice "&Integer'Image(indice));
+			Put_Line("min "&Float'Image(min));Put_Line("nbf "&Integer'Image(nbf));
+			Put_Line("minZ"&Float'Image(minZ));Put_Line("max "&Float'Image(max));
+			raise INSERTION_ERROR;
+	when others => raise;
+end triPaquet;
 
 --Place sur le premier polygone du tableau de liste de polygone.
 procedure demarrer (APoly: in AccEns_Poly; Pp: in out AListePoly; CaseCour : out integer) is 

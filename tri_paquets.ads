@@ -10,23 +10,20 @@ use Ada.Integer_Text_IO;
 package tri_paquets is
 
 --Procedure effectuant un tri par paquet.
-procedure triPaquet (pF : in type_projet.pointsFace; p_poly : in type_projet.AccEns_Poly; minZ, min, max : in float; nbf : in integer); -- Effectue le tri_paquet sur un polygone
 
---Effectue une insertion triée dans une liste.
-Procedure insertGrowing (l: in out AListePoly; elem: in ListePoly);
+procedure triPaquet (pF : in type_projet.pointsFace; p_poly : in type_projet.AccEns_Poly; minZ, min, max : in float; nbf : in integer);
 
 --Place sur le premier polygone du tableau de liste de polygone.
-procedure demarrer (APoly: in type_projet.AccEns_Poly; Pp: in out type_projet.AListePoly; CaseCour : out integer);--Place sur le premier triangle
+procedure demarrer (APoly: in type_projet.AccEns_Poly; Pp: in out type_projet.AListePoly; CaseCour : out integer);
 
 --Renvoi les infos sur l'element en cours
-function elemCourant(Pp: in type_projet.AListePoly) return type_projet.AccPointsFace;--Renvoi les infos sur l'elem en cours
+function elemCourant(Pp: in type_projet.AListePoly) return type_projet.AccPointsFace;
 
 --Fait avancer de 1 polygone.
-procedure avancer (APoly: in type_projet.AccEns_Poly; Pp: in out type_projet.AListePoly; CaseCour: in out integer);--Fait avancer de 1 element
+procedure avancer (APoly: in type_projet.AccEns_Poly; Pp: in out type_projet.AListePoly; CaseCour: in out integer);
 
 --Vérifie si on a terminé le parcours du tableau de liste de polygones.
-function finDeSequence (APoly: in AccEns_Poly; CaseCour: in integer) return boolean;--Vérifie si on est en fin de séquence
-
+function finDeSequence (APoly: in AccEns_Poly; CaseCour: in integer) return boolean;
 
 --EXCEPTION
 --Exception levé si il y a une erreur sur le tri
