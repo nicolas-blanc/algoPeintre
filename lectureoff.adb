@@ -14,9 +14,10 @@ begin
 	end if;
 end init;
 
-procedure close (f : in out file_type) is
+procedure close (f : in out file_type; p: out type_projet.AccEns_Poly) is
 begin
 	Ada.Text_IO.close(f);
+	type_projet.freeTab(p);
 end close;
 
 --Procedure remplissant le tableau de points en les lisant dans le fichier.

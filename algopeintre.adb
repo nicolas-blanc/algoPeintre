@@ -57,15 +57,15 @@ begin
 			--On récupère tous les polygones.
 			lectureoff.initEnsPolygones(DBase(1),fichierOFF,p_EnsPoly,EPoints,minz,maxz); -- p_EnsPoly -> pointeur sur tab de polygone
 
-			lectureoff.close(fichierOFF);
 
 			tempsF := Ada.Real_Time.Clock;
 			Duree := tempsF - tempsD;
 			Put_Line("Durée initialisation : " & Integer'Image(Duree / Milliseconds(1)));
 
-			--On traaduit et génère un fichier PostScript.
+			--On traduit et génère un fichier PostScript.
 			trad_post_script.genererPostScript(nom_fichier,p_EnsPoly,EPoints,minx,maxx,miny,maxy,minz,maxz);
 			
+			lectureoff.close(fichierOFF,p_EnsPoly);
 		end;
 
 		Put_line("Fin de l'execution du programme");

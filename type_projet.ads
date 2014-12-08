@@ -1,3 +1,5 @@
+with Ada.Unchecked_Deallocation;
+
 package type_projet is
 
 --Contient les coordonnées d'un point-------------------------------------------
@@ -47,5 +49,18 @@ type AccEns_Poly is access Ens_Poly;
 --Contient les données de base, nombre de sommet, nombre de faces et nombre d'arretes
 type DonBase is array (integer range 0..2) of integer;
 --------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+--Procédure de libération des pointeurs-----------------------------------------
+procedure freeTab is
+	new Ada.Unchecked_Deallocation (type_projet.Ens_Poly,type_projet.AccEns_Poly);
+-- Si on a une variable T de type AccEns_Poly, on
+-- peut maintenant invoquer Free (T).
+
+procedure freePoly is
+	new Ada.Unchecked_Deallocation (type_projet.ListePoly,type_projet.AListePoly);
+
+procedure freeTabPoint is
+	new Ada.Unchecked_Deallocation (type_projet.pointsFace,type_projet.AccPointsFace);
 
 end type_projet;

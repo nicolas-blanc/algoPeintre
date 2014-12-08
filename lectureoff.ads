@@ -17,7 +17,8 @@ procedure init (monFichier: out file_type; nom : in string; DBase : out type_pro
 
 --Procédure permettant de fermer le fichier
 --Le fichier f doit être ouvert
-procedure close (f : in out file_type);
+--Elle libère aussi le pointeur vers le tableau de liste
+procedure close (f : in out file_type; p: out type_projet.AccEns_Poly);
 
 --Procedure remplissant le tableau de points en les lisant dans le fichier.
 --Créer un point differement selon le type de vue choisie.

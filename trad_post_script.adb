@@ -8,6 +8,8 @@ package body trad_post_script is
 procedure genererPostScript(nom_fichier : in string; APoly: in type_projet.AccEns_Poly;EPoints : in Ens_points; minx,maxx,miny,maxy,minz,maxz: in float) is
 
 p_list: AListePoly;
+p_list2: AListePoly;
+
 k:integer:=0;
 transx:float:=0.0;
 transy:float:=0.0;
@@ -19,6 +21,12 @@ fichierPost: file_type;
 
 tempsD,tempsF:Ada.Real_Time.Time;
 Duree:Ada.Real_Time.Time_Span;
+
+procedure libererPoly(p : in out type_projet.AListePoly) is
+begin
+	freeTabPoint(p.all.p_poly);
+	freePoly(p);
+end libererPoly;
 
 begin
 
@@ -81,8 +89,13 @@ begin
 				Put_Line(fichierPost,"fill");
 				Put_Line(fichierPost,"grestore");
 				Put_Line(fichierPost,"stroke");
+
+				p_list2 := p_list;
 				--Enfin, on avance dans les polygones.
 				tri_paquets.avancer(APoly,p_list,k);
+
+				--Pour terminer, on libère le polygone précédent, il n'est plus utilisé
+				libererPoly(p_list2);
 		end loop;
 	end if;
 
