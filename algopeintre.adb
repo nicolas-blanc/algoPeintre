@@ -53,21 +53,20 @@ begin
 			--On récupère tous les polygones.
 			lectureoff.initEnsPolygones(DBase(1),fichierOFF,p_EnsPoly,EPoints,minz,maxz); -- p_EnsPoly -> pointeur sur tab de polygone
 
+			lectureoff.close(fichierOFF);
+
 			tempsF := Ada.Real_Time.Clock;
-			Duree := tempsD - tempsF;
+			Duree := tempsF - tempsD;
 			Put_Line("Durée initialisation : " & Integer'Image(Duree / Milliseconds(1)));
 
 			--On traaduit et génère un fichier PostScript.
-			trad_post_script.afficherPostScript(nom_fichier,p_EnsPoly,EPoints,minx,maxx,miny,maxy,minz,maxz);
+			trad_post_script.genererPostScript(nom_fichier,p_EnsPoly,EPoints,minx,maxx,miny,maxy,minz,maxz);
 			
 		end;
 
 		Put_line("Fin de l'execution du programme");
 		Put_line("Vous pouvez maintenant ouvrir le fichier : " & nom_fichier);
 	end;
-
-	lectureoff.close(fichierOFF);
-
 
 exception
 	when NBR_LIGNES_ERROR => Put_line("Fin du programme avec une erreur NBR_LIGNES_ERROR");
