@@ -27,4 +27,9 @@ procedure avancer (APoly: in type_projet.AccEns_Poly; Pp: in out type_projet.ALi
 --Vérifie si on a terminé le parcours du tableau de liste de polygones.
 function finDeSequence (APoly: in AccEns_Poly; CaseCour: in integer) return boolean;--Vérifie si on est en fin de séquence
 
+
+--EXCEPTION
+--Exception levé si il y a une erreur sur le tri
+INSERTION_ERROR : EXCEPTION;
+
 end tri_paquets;

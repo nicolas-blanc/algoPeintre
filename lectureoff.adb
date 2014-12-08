@@ -21,7 +21,7 @@ end close;
 
 --Procedure remplissant le tableau de points en les lisant dans le fichier.
 --Créer un point differement selon le type de vue choisie.
-procedure initEnsPoints (vue : in integer; nbs: in integer; f: in file_type; EPoints: out type_projet.Ens_points; maxx,minx,maxy,miny,maxz,minz : in out float) is
+procedure initEnsPoints (vue, nbs: in integer; f: in file_type; EPoints: out type_projet.Ens_points; maxx,minx,maxy,miny,maxz,minz : in out float) is
 	p:type_projet.point;
 
 	--Lit les trois coordonnées d'un point.
@@ -32,8 +32,7 @@ procedure initEnsPoints (vue : in integer; nbs: in integer; f: in file_type; EPo
 		Get(f,p3);		
 	end lirePoint;
 begin
-
---Remplit le point differemet selon la vue souhaitée.
+	--Remplit le point differemet selon la vue souhaitée.
 	if vue = 1 then
 		lirePoint(f,p.z,p.y,p.x);
 	elsif vue = 2 then
@@ -82,6 +81,9 @@ begin
 		end if;
 
 	end loop;
+
+exception
+	when ADA.IO_EXCEPTIONS.END_ERROR => Put_Line("Le fichier est vide");
 end initEnsPoints;
 
 --Procedure lisant l'ensemble des polygones.
@@ -111,7 +113,7 @@ begin
 	end loop;
 exception
 	when ADA.IO_EXCEPTIONS.END_ERROR => Put_Line("Erreur sur le nombre de ligne du fichier");
-		raise type_projet.NBR_LIGNES_ERROR;
+		raise NBR_LIGNES_ERROR;
 	when others => raise;
 end initEnsPolygones;
 

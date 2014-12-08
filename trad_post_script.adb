@@ -73,45 +73,48 @@ begin
 	if centrex <= 0.0 then centrex := 0.0; end if;
 	if centrey <= 0.0 then centrey := 0.0; end if;
 
---On démarre le parcours des polygones.
+	--On démarre le parcours des polygones.
 	tri_paquets.demarrer(APoly,p_list,k);
 
---On parcours tous les polygones.
-	while not(tri_paquets.finDeSequence (APoly,k))loop
-		--On recupère l'element courant afin de le traiter.
-		Apface:=tri_paquets.elemCourant(p_list);
-		for j in Apface'range loop
-			--On met dans le fichier PostScript les différents points composant le polygone.
-			if (j=0) then Put_Line(fichierPost,Float'Image((((EPoints(Apface.all(j)).x) + transx) * ratio) + centrex)
-				& " "
-				& Float'Image((((EPoints(Apface.all(j)).y)+transy) * ratio) + centrey) 
-				& " moveto");
-			else Put_Line(fichierPost,Float'Image((((EPoints(Apface.all(j)).x) + transx) * ratio) + centrex) 
-				& " " & Float'Image((((EPoints(Apface.all(j)).y)+transy) * ratio)+ centrey)
-				& " lineto");
-			end if;
-			if (j=Apface'last) then Put_Line(fichierPost,Float'Image((((EPoints(Apface.all(0)).x) + transx) * ratio) + centrex)
-				& " " & Float'Image((((EPoints(Apface.all(0)).y)+transy) * ratio)+ centrey)
-				& " lineto"); 
-			end if;
-		end loop;
-			--On finit par ajouter les elements necessaires au bon affichage du polygone.
-			Put_Line(fichierPost,"gsave");
-			Put_Line(fichierPost,"1 setgray");
-			Put_Line(fichierPost,"fill");
-			Put_Line(fichierPost,"grestore");
-			Put_Line(fichierPost,"stroke");
-			--Enfin, on avance dans les polygones.
-			tri_paquets.avancer(APoly,p_list,k);
-	end loop;
+	-- Test sur le fichier, si il est vide, la boucle n'est pas faite
+	if k /= -1 and p_list /= null then 
 	
+		--On parcours tous les polygones.
+		while not(tri_paquets.finDeSequence (APoly,k))loop
+			--On recupère l'element courant afin de le traiter.
+			Apface:=tri_paquets.elemCourant(p_list);
+			for j in Apface'range loop
+				--On met dans le fichier PostScript les différents points composant le polygone.
+				if (j=0) then Put_Line(fichierPost,Float'Image((((EPoints(Apface.all(j)).x) + transx) * ratio) + centrex)
+					& " "
+					& Float'Image((((EPoints(Apface.all(j)).y)+transy) * ratio) + centrey) 
+					& " moveto");
+				else Put_Line(fichierPost,Float'Image((((EPoints(Apface.all(j)).x) + transx) * ratio) + centrex) 
+					& " " & Float'Image((((EPoints(Apface.all(j)).y)+transy) * ratio)+ centrey)
+					& " lineto");
+				end if;
+				if (j=Apface'last) then Put_Line(fichierPost,Float'Image((((EPoints(Apface.all(0)).x) + transx) * ratio) + centrex)
+					& " " & Float'Image((((EPoints(Apface.all(0)).y)+transy) * ratio)+ centrey)
+					& " lineto"); 
+				end if;
+			end loop;
+				--On finit par ajouter les elements necessaires au bon affichage du polygone.
+				Put_Line(fichierPost,"gsave");
+				Put_Line(fichierPost,"1 setgray");
+				Put_Line(fichierPost,"fill");
+				Put_Line(fichierPost,"grestore");
+				Put_Line(fichierPost,"stroke");
+				--Enfin, on avance dans les polygones.
+				tri_paquets.avancer(APoly,p_list,k);
+		end loop;
+	end if;
+
 	Put_Line(fichierPost,"showpage");
 
 	tempsF := Ada.Real_Time.Clock;
 
-	Duree := tempsD - tempsF;
+	Duree := tempsF - tempsD;
 
-	--Put_Line("La durée de la traduction est de : " & Integer'Image(Duree / Milliseconds(1)));
 	Put_Line("La durée de la traduction est de : " & Integer'Image(Duree / Milliseconds(1)));
 end afficherPostScript;
 

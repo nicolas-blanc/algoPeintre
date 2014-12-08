@@ -63,6 +63,7 @@ procedure demarrer (APoly: in AccEns_Poly; Pp: in out AListePoly; CaseCour : out
 	i: integer:=0;
 	trouve:boolean;
 begin
+	if APoly.all'length > 1 then
 		trouve:=False;
 		Pp:= APoly(i);
 		while not(trouve) and i<=APoly.all'length loop
@@ -74,6 +75,10 @@ begin
 			end if;
 		end loop;
 		CaseCour:=i;
+	else
+		CaseCour := -1;
+		Pp := null;
+	end if;
 end demarrer;
 
 --Renvoi les infos sur l'element en cours
