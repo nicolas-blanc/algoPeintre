@@ -2,35 +2,10 @@ with tri_paquets;
 with Ada.Real_Time; use Ada.Real_Time;
 package body trad_post_script is 
 
---Procedure de test qui nous permettait d'afficher une partie du tableau de polygone.
-procedure afficherTab(APoly: in type_projet.AccEns_Poly) is
-p_list: AListePoly;
-k:integer:=0;
-begin
-	for i in APoly.all'range loop 
-			p_list:=APoly(i);
-			k:=0;
-			Put_Line(Integer'Image(i));
-			while p_list /=null loop
-				Put_Line("     "&Integer'Image(k));
-				if p_list.all.p_poly /= null then
-					--for j in p_list.all.p_poly.all'range loop
-						--Put_Line(Integer'image((APoly.all(i).all.p_poly.all)'length));
-						--Put_Line(Integer'Image(j)&);
-					--end loop;
-					Put_Line("          "&Float'Image(p_list.all.minZ));
-				end if;
-				p_list:=p_list.all.Succ;
-				k:=k+1;
-			end loop;
-	end loop;
-
-end afficherTab;
-
 --Procedure utilisant les structures de données crées précédemment pour créer un fichier PostScipt dessinant l'image.
 --Les paramètres sont le nom du fichier à créer, le pointeur sur le tableau contenant l'ensemble des polygones, un pointeur sur le tabelau contenant
 --tous les points, et enfin les minimums et maximums globaux pour chaque coordonées.
-procedure afficherPostScript(nom_fichier : in string; APoly: in type_projet.AccEns_Poly;EPoints : in Ens_points; minx,maxx,miny,maxy,minz,maxz: in float) is
+procedure genererPostScript(nom_fichier : in string; APoly: in type_projet.AccEns_Poly;EPoints : in Ens_points; minx,maxx,miny,maxy,minz,maxz: in float) is
 
 p_list: AListePoly;
 k:integer:=0;
@@ -64,6 +39,8 @@ begin
 	else ratio:=ratiox; 
 	end if;
 
+	Put_Line("Transx = " & Float'Image(transx));
+	Put_Line("Ratio = " & Float'Image(ratio));
 	--if (maxx + transx) * ratio > 590.0 or (maxy + transy) * ratio > 840.0 then
 	--ratio:=ratio/2.0;
 	--end if;
@@ -116,6 +93,7 @@ begin
 	Duree := tempsF - tempsD;
 
 	Put_Line("La durée de la traduction est de : " & Integer'Image(Duree / Milliseconds(1)));
-end afficherPostScript;
+
+end genererPostScript;
 
 end trad_post_script;
